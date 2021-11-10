@@ -1,0 +1,29 @@
+api:
+  autodiscovery:
+    id: "17415443"
+      
+json.logger:
+  disabledFields: ""
+ 
+dlb:
+  internal:
+    hostname: "dev.private-api-int.condenast.com"
+
+atlas:
+  sfdc:
+    brightmedia:
+      sapi:
+        host: "dev.private-api-int.condenast.com"
+        port: "443"
+        client_id: "9ca6e130f2fe47cfa6f499753723a1e5"
+        client_secret: "0B8959FCaCEB4B8dAC22032DaC3023Ca"
+        basepath: "atlas/brightmedia-sapi"
+        blipath: "v1/billinglineitem"
+        flipath: "v1/fullfilmentlineitem"
+    
+#Slack Configuration for common-services
+slack:
+  channel:   "dev-mule-notification"
+  enable:    "true"
+
+       

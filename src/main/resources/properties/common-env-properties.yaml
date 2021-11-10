@@ -1,0 +1,19 @@
+api:
+  name:         "${api.artifactId}" 
+  groupId:      "${api.groupId}" 
+  artifactId:   "${api.artifactId}" 
+  version:      "${api.version}"
+  majorVersion: "${api.major.version}"
+  
+http:
+  private:
+    port: "8091"
+  reconnection:
+    frequency: "2000"
+    attempts: "2"
+    
+dlb:
+  internal:
+    protocol: "HTTPS"
+    port: "443"
+  

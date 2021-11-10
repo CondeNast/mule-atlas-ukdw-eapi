@@ -1,0 +1,30 @@
+api:
+  autodiscovery:
+    id: "17276875"
+    
+  
+json.logger:
+  disabledFields: ""
+ 
+dlb:
+  internal:
+    hostname: "stg.private-api-int.condenast.com"
+
+atlas:
+  sfdc:
+    bli:
+      papi:
+        basepath: "atlas/order-bli-papi"
+        host: "stg.private-api-int.condenast.com"
+        port: "443"
+        billingLineItems: "v1/order/billingLineItems"
+        orderLineItems: "v1/order/orderLineItems"
+        actualsLineItem: "v1/order/actualLineItems"
+    brightmedia:
+      sapi:
+        basepath: "atlas/brightmedia-sapi"
+        host: "stg.private-api-int.condenast.com"
+        port: "443"
+        blipath: "v1/billinglineitem"
+        client_id: "ad7c27d3120c4af18cc396fadfca4fdd"
+        client_secret: "F461bbf59aDB43169F287C1C67948a0A"
