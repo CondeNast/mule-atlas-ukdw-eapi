@@ -27,7 +27,7 @@
 			<properties>
 				<packaging.type>mule-application</packaging.type>
 				<mule.env>dev</mule.env>
-				<mule.encryption.key>condeNastencyptionkey</mule.encryption.key>
+				<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 				<env.anypoint.client.id>2447dbf69d8244a9a0a0751f725f45bd</env.anypoint.client.id>
 				<env.anypoint.client.secret>CE5d084bEAf14b1Aa8EA1D8b21D23c19</env.anypoint.client.secret>
 			</properties>
@@ -40,7 +40,7 @@
 			<properties>
 				<packaging.type>mule-application</packaging.type>
 				<mule.env>dev</mule.env>
-				<mule.encryption.key>condeNastencyptionkey</mule.encryption.key>
+				<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 				<env.anypoint.client.id>2447dbf69d8244a9a0a0751f725f45bd</env.anypoint.client.id>
 				<env.anypoint.client.secret>CE5d084bEAf14b1Aa8EA1D8b21D23c19</env.anypoint.client.secret>
 			</properties>
@@ -53,7 +53,7 @@
 			<properties>
 				<packaging.type>mule-application</packaging.type>
 				<mule.env>sit</mule.env>
-				<mule.encryption.key>condeNastencyptionkey</mule.encryption.key>
+				<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 				<env.anypoint.client.id>2447dbf69d8244a9a0a0751f725f45bd</env.anypoint.client.id>
 				<env.anypoint.client.secret>CE5d084bEAf14b1Aa8EA1D8b21D23c19</env.anypoint.client.secret>
 			</properties>
@@ -66,7 +66,7 @@
 			<properties>
 				<packaging.type>mule-application</packaging.type>
 				<mule.env>test</mule.env>
-				<mule.encryption.key>condeNastencyptionkey</mule.encryption.key>
+				<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 				<env.anypoint.client.id>2447dbf69d8244a9a0a0751f725f45bd</env.anypoint.client.id>
 				<env.anypoint.client.secret>CE5d084bEAf14b1Aa8EA1D8b21D23c19</env.anypoint.client.secret>
 			</properties>
@@ -79,7 +79,7 @@
 			<properties>
 				<packaging.type>mule-application</packaging.type>
 				<mule.env>test</mule.env>
-				<mule.encryption.key>condeNastencyptionkey</mule.encryption.key>
+				<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 				<env.anypoint.client.id>2447dbf69d8244a9a0a0751f725f45bd</env.anypoint.client.id>
 				<env.anypoint.client.secret>CE5d084bEAf14b1Aa8EA1D8b21D23c19</env.anypoint.client.secret>
 			</properties>
