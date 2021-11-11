@@ -47,15 +47,15 @@ output application/json
 output application/json
 ---
 {
-	"x-correlation-id": vars.outboundHeaders['x-correlation-id'] default correlationId,
+	"x-correlation-id": vars.myHeaders['x-correlation-id'] default correlationId,
 	// Source and Target will be switched as per business requirement
-	"x-source": vars.outboundHeaders['x-target'],
-	"x-target": vars.outboundHeaders['x-source'],
+	"x-source": vars.myHeaders['x-target'],
+	"x-target": vars.myHeaders['x-source'],
 	"x-message-type": "MS_STS",
 	"x-message-version": "1.0.0",
 	"x-generation-time": now(),
-	"x-message-id": vars.outboundHeaders['x-message-id'],
-	"x-processing-time": vars.outboundHeaders['x-processing-time'],
+	"x-message-id": vars.myHeaders['x-message-id'],
+	"x-processing-time": vars.myHeaders['x-processing-time'],
 	"Content-Type": "application/json"
 }]]></ee:set-variable>
 			</ee:variables>
