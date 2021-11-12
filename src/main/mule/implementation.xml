@@ -11,6 +11,7 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 		<flow name="updateBillingLineItems"
 		doc:id="b5a9a213-48cd-4d70-84af-bc9340212afe">
 		
+		<flow-ref doc:name="setHeaders" doc:id="ff2eb9fc-03ae-4426-944d-c10559ff2c3a" name="setHeaders"/>
 		<logger level="DEBUG" doc:name="Debug - Start Flow" doc:id="725e8aab-4a5d-42a6-9edf-41b5096da91a" message="TRACE_POINT: START: updateBillingLineItems Flow Implementation Starts" category="com.condenast.api"/>
 		<logger level="DEBUG" doc:name="Debug log - Before calling updateBillingLineItems System API call" doc:id="3cab268f-3a50-4390-b7ab-6718c365f904" message="TRACE_POINT: Before Calling Update invoiceBillingLineItems System API call" category="com.condenast.api"/>		
 		<logger level="DEBUG" doc:name="Debug log - Message Payload" doc:id="380b2aa8-6807-468a-9998-94634978e337" message="TRACE_POINT: MSG_PAYLOAD: #[payload]" category="com.condenast.api"/>
@@ -26,6 +27,7 @@ vars.myHeaders]]]></http:headers>
 		<flow name="updateFulfillmentLineItems"
 		doc:id="0f962fb8-9dc7-4be9-af42-d416586952f2">
 		
+		<flow-ref doc:name="setHeaders" doc:id="9f2e41ce-b357-4f9e-b7fd-e248101605a0" name="setHeaders"/>
 		<logger level="DEBUG" doc:name="Debug - Start Flow" doc:id="444dc397-b1ad-45f8-b471-5853e93495c4" message="TRACE_POINT: START: updateFulfillmentLineItems Flow Implementation Starts" category="com.condenast.api"/>
 		<logger level="DEBUG" doc:name="Debug log - Before calling updateFulfillmentLineItems System API call" doc:id="0a4d4a33-2e0a-48ef-b3de-2b335cf33e8c" message="TRACE_POINT: Before Calling Update updateFulfillmentLineItems System API call" category="com.condenast.api"/>		
 		<logger level="DEBUG" doc:name="Debug log - Message Payload" doc:id="e53bf7c0-d6bd-40df-9b1c-8c049cc82336" message="TRACE_POINT: MSG_PAYLOAD: #[payload]" category="com.condenast.api"/>
@@ -85,5 +87,8 @@ payload[0].batchResult]]></ee:set-payload>
 				</ee:transform>
 			</otherwise>
 		</choice>
+	</sub-flow>
+	<sub-flow name="setHeaders" doc:id="153b763f-bf36-49e2-acae-37053c6b6a6e" >
+	<set-variable value="#[output application/json --- { &quot;x-message-version&quot;: attributes.headers.&quot;x-message-version&quot;, &quot;x-source&quot;: attributes.headers.&quot;x-source&quot;, &quot;x-target&quot;: attributes.headers.&quot;x-target&quot;, &quot;x-generation-time&quot;: attributes.headers.&quot;x-generation-time&quot;, &quot;x-message-type&quot;: &quot;MS_STS&quot;, &quot;x-message-id&quot;: attributes.headers.&quot;x-message-id&quot;, &quot;client_id&quot;: Mule::p('atlas.sfdc.brightmedia.sapi.client_id'), &quot;client_secret&quot;: Mule::p('atlas.sfdc.brightmedia.sapi.client_secret')  }]" doc:name="Set myHeaders" doc:id="49f57642-420c-4dd9-b019-a51525634b91" variableName="myHeaders" />
 	</sub-flow>	
 </mule>
