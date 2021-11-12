@@ -16,8 +16,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
             </http:error-response>
         </http:listener>
-        <flow-ref doc:name="log-request-received" doc:id="375de400-2242-46bb-ada2-47d1fb6e2647" name="log-request-received"/>
-		<set-variable value="#[output application/json --- { &quot;x-message-version&quot;: attributes.headers.&quot;x-message-version&quot;, &quot;x-source&quot;: attributes.headers.&quot;x-source&quot;, &quot;x-target&quot;: attributes.headers.&quot;x-target&quot;, &quot;x-generation-time&quot;: attributes.headers.&quot;x-generation-time&quot;, &quot;x-message-type&quot;: &quot;MS_STS&quot;, &quot;x-message-id&quot;: attributes.headers.&quot;x-message-id&quot;, &quot;client_id&quot;: Mule::p('atlas.sfdc.brightmedia.sapi.client_id'), &quot;client_secret&quot;: Mule::p('atlas.sfdc.brightmedia.sapi.client_secret')  }]" doc:name="Set myHeaders" doc:id="c271fcdc-3945-4a7c-8458-4ec2b7eed6e8" variableName="myHeaders" />
+        <flow-ref doc:name="log-request-received" doc:id="375de400-2242-46bb-ada2-47d1fb6e2647" name="log-request-received"/>		
 		<apikit:router config-ref="atlas-ukdwh-eapi-config" />
 
 		<flow-ref doc:name="log-response-returned" doc:id="82b046d0-d3e6-4ada-8928-f7644ca2e086" name="log-response-returned" />
