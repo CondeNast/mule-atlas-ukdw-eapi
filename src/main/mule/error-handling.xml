@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	
+	<error-handler name="global-error-handler">
+		<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="d01b1c61-5771-4dd1-9939-62b5f6fa05a7" type="ANY">
+			<flow-ref doc:name="error-handling-process-error-flow" doc:id="04bb5bb2-d2bd-4178-aa51-25c2ce8ee750" name="error-handling-process-error-flow"/>
+		</on-error-continue>
+		
+		
+		
+
+</error-handler>
+
+	<sub-flow name="set-error-response-sub-flow" doc:id="d13b7db0-0fd0-4e70-99ee-ba61517aa47e" >
+		<ee:transform doc:name="Transform Error Response Payload" doc:id="86e3402d-0616-4427-b737-71ee9ef5c1ed" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  "Status": "Failure",
+  "Errors": [
+    {
+      "Error": {
+        "Severity": "Fatal",
+        "Code": vars.httpStatus,
+        "Summary": "Request Failed.",
+        "Messages": [
+          error.description
+        ]
+      }
+    }
+  ]
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Prepare Error outboundHeaders" doc:id="f5a62354-fe38-40f1-be90-3607891f6599" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="outboundHeaders" ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"x-correlation-id": vars.myHeaders['x-correlation-id'] default correlationId,
+	// Source and Target will be switched as per business requirement
+	"x-source": vars.myHeaders['x-target'],
+	"x-target": vars.myHeaders['x-source'],
+	"x-message-type": "MS_STS",
+	"x-message-version": "1.0.0",
+	"x-generation-time": now(),
+	"x-message-id": vars.myHeaders['x-message-id'],
+	"x-processing-time": vars.myHeaders['x-processing-time'],
+	"Content-Type": "application/json"
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+	</sub-flow>
+	</mule>

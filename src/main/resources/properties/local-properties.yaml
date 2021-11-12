@@ -1,0 +1,30 @@
+api:
+  autodiscovery:
+    id: "16584271"
+    
+
+sfdc:
+  consumer-key: "3MVG9Lf04EwncL7mmDlDlGIDsYbtAeE52S42zzocP25z5MJRUwSpk44_Hv1nPODu0q4ydkDQaJFSD3bVsrONi"
+  consumer-secret: "D7EEA6BE0B976B574FC74600CDB5908622AF0698D3F04DFD4A66A8F9D22B228A"
+  token-endpoint: "https://condenastinternational--sit2.my.salesforce.com/services/oauth2/token"
+  username: "sfmule.integration@condenast.com.sit2"
+  password: "sit2@sfdc@muleCondeNast!"
+  security-token: "0zSkeSIbXYsxJd7Ko0oDIZrKO"
+  
+json.logger:
+  disabledFields: ""
+ 
+dlb:
+  internal:
+    hostname: "dev.private-api-int.condenast.com"
+
+atlas:
+  sfdc:
+    bli:
+      papi:
+        basepath: "api"
+        host: "cn-int-atlas-sfdc-bli-papi-v1-dev.ir-e1.cloudhub.io"
+        port: "80"
+        billingLineItems: "v1/order/billingLineItems"
+        orderLineItems: "v1/order/orderLineItems"
+        actualsLineItem: "v1/order/actualLineItems"
