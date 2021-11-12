@@ -1,6 +1,6 @@
 api:
   autodiscovery:
-    id: "17422355"
+    id: "17422385"
       
 json.logger:
   disabledFields: ""
