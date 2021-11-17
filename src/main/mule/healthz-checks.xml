@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+		<flow name="healthz-check-global-application-main-flow" doc:id="22544760-37d9-42fc-80be-3052342a159c" >
+		<scheduler doc:name="Healthz Scheduler MainFlow" doc:id="a2a4fca6-14c9-4f67-b56a-aab60b021479" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="15" timeUnit="MINUTES"/>
+			</scheduling-strategy>
+		</scheduler>
+		<ee:transform doc:name="Prepare requested JobProperties" doc:id="537e7ede-070a-4516-981b-67f73d1e5314" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="requestedJobProperties" ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"apiService": "Mulesoft UKDWH EAPI Application Healthz Check API",
+	"requestBody": payload,
+	"messageId": attributes.headers."x-message-id",
+	"apiName": Mule::p('api.name'),
+	"jobType": "Http Request Trigger",
+	"timeOfRequest": now() >> 'UTC'
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Prepare Response Payload" doc:id="0394657a-2a46-411c-bcfe-37e3b095a0a0" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{  
+ 	"MessageID": vars.requestedJobProperties['messageId'] default "Could Not Retrieve Id.",
+    "APIName": vars.requestedJobProperties['apiName'] default "Mulesoft UKDWH EAPI Application Healthz Check",    
+    "APIService": vars.requestedJobProperties['apiService'] default "Healthz Mulesoft UKDW EAPI",
+ 	"RequestBody": vars.requestedJobProperties['requestBody'] default null,
+	"ResponseStatus" : 200,
+	"ResponseBody": "Status: Request Completed."++ "; Time of Request: " ++ (vars.requestedJobProperties['timeOfRequest'] default now()>>"UTC") ++ "; Message: Application is running.",
+	"Tags": Mule::p('log.tags') default "Could Not Retrieve Tags."
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="INFO: Log Success" doc:id="08176db0-7d69-42bf-9f46-9244932f6f25" message="#[payload]" category="com.condenast.api"/>
+		<error-handler >
+			<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="25d30fdd-8d5b-44c2-b6ed-900a06902738" >
+				<set-variable value="500" doc:name="Set httpStatus" doc:id="346cb2de-9029-4186-bdab-34c4693b2b45" variableName="httpStatus"/>
+				<ee:transform doc:name="Prepare Payload for Logging" doc:id="3aa0688d-7266-40f1-831f-ed9cee5701d4" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{  
+	"MessageID": vars.requestedJobProperties['messageId'] default "Could Not Retrieve Id.",
+    "APIName": vars.requestedJobProperties['apiName'] default "cn-ext-atlas-ukdwh-eapi",    
+    "APIService": vars.requestedJobProperties['apiService'] default "Mulesoft UKDWH EAPI Application Healthz Check",
+    "RequestBody": vars.requestedJobProperties['requestBody'],
+	"ResponseStatus" : vars.httpStatus default 500,
+	"ResponseBody": "Status: Request Failed." ++ "; Time of Request: " ++ (vars.requestedJobProperties['timeOfRequest'] default now()>>"UTC") ++ "; Message: Error during processing request in main health check flow.",
+	"ErrorType": ((error.errorType.namespace default "ERROR") ++ ":" ++ (error.errorType.identifier default "UNKNOWN")) default "Unknown Error",
+	"ErrorDescription": error.description default "No Error description available.",
+	"Tags": p('log.tags') default "Could Not Retrieve Tags."
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="ERROR" doc:name="Error Logging" doc:id="38034242-9470-45cf-a630-d92f0faa2b3c" message="#[payload]" category="com.condenast.api"/>
+				<flow-ref doc:name="error-handling-process-error-flow" doc:id="4652f056-ab8e-4018-be4a-833db90d5804" name="error-handling-process-error-flow"/>
+			</on-error-continue>
+		</error-handler>
+	</flow>
+	<flow name="healthz-check-brightMediaSapi-main-flow" doc:id="392b9645-742f-4580-9b6c-5ca3457b7e03" >
+		<scheduler doc:name="Healthz Scheduler Rest Flow" doc:id="6d8a8f5f-e709-42ef-94bf-017b2a064e6b" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="15" timeUnit="MINUTES"/>
+			</scheduling-strategy>
+		</scheduler>
+		<ee:transform doc:name="Prepare requested JobProperties" doc:id="8bb590ec-acf7-480e-ac68-4667b29cb2f2" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="requestedJobProperties" ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"apiService": "Mulesoft UKDWH SAPI Application BrightMedia Connection Healthz Check API",
+	"requestBody": payload,
+	"messageId": attributes.headers."x-message-id",
+	"apiName": Mule::p('api.name'),
+	"jobType": "Http Request Trigger",
+	"timeOfRequest": now() >> 'UTC'
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="setHeaders" doc:id="74a6560c-b57a-4fdc-97fb-a9edc20a27ee" name="setHeaders"/>
+		<http:request method="GET" doc:name="Get BrightMedia SAPI Health" doc:id="43baba3d-e98d-4920-8775-6a9e030bc7bd" config-ref="HTTP_SAPI_Request_configuration" path="/${atlas.sfdc.brightmedia.sapi.healthzpath}">
+			<http:headers ><![CDATA[#[output application/java
+---
+vars.myHeaders]]]></http:headers>
+		</http:request>
+		<ee:transform doc:name="Prepare Response Payload" doc:id="a06c2403-a4ab-40a3-8eb5-dd627a5c7758" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{  
+ 	"MessageID": vars.requestedJobProperties['messageId'] default "Could Not Retrieve Id.",
+    "APIName": vars.requestedJobProperties['apiName'] default "cn-ext-atlas-ukdwh-eapi",    
+    "APIService": vars.requestedJobProperties['apiService'] default "Mulesoft UKDWH EAPI Application Healthz Check BrightMedia Connection API",
+ 	"RequestBody": vars.requestedJobProperties['requestBody'] default null,
+	"ResponseStatus" : 200,
+	"ResponseBody": "Status: Request Completed."++ "; Time of Request: " ++ (vars.requestedJobProperties['timeOfRequest'] default now()>>"UTC") ++ "; Message: Connection to BrightMedia SAPI is working as expected.: Response from BrightMedia SAPI : " ++ (write(payload,"application/json") default ""),
+	"Tags": Mule::p('log.tags') default "Could Not Retrieve Tags."
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="INFO: Log Success" doc:id="02874fcf-14ac-436f-9552-9c7cfb1a1499" message="#[payload]" category="com.condenast.api"/>
+		<error-handler >
+			<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="6891d343-0c4a-43f1-b218-453646de1a2e" >
+				<set-variable value="500" doc:name="Set httpStatus" doc:id="d0db7f68-7a82-4ba0-a6a6-c49dcba496d8" variableName="httpStatus"/>
+				<ee:transform doc:name="Prepare Payload for Logging" doc:id="468d5fc1-f18f-49dc-a0b6-26fe17bf72a9" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{  
+	"MessageID": vars.requestedJobProperties['messageId'] default "Could Not Retrieve Id.",
+    "APIName": vars.requestedJobProperties['apiName'] default "cn-ext-atlas-ukdwh-eapi",    
+    "APIService": vars.requestedJobProperties['apiService'] default "Mulesoft UKDWH EAPI Application Healthz Check BrightMedia Connection API",
+    "RequestBody": vars.requestedJobProperties['requestBody'],
+	"ResponseStatus" : vars.httpStatus default 500,
+	"ResponseBody": "Status: Request Failed." ++ "; Time of Request: " ++ (vars.requestedJobProperties['timeOfRequest'] default now()>>"UTC") ++ "; Message: Error during processing request in BrightMedia Connection Check health check flow.",
+	"ErrorType": ((error.errorType.namespace default "ERROR") ++ ":" ++ (error.errorType.identifier default "UNKNOWN")) default "Unknown Error",
+	"ErrorDescription": error.description default "No Error description available.",
+	"Tags": Mule::p('log.tags') default "Could Not Retrieve Tags."
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="ERROR" doc:name="Error Logging" doc:id="0493b4d8-469c-4bbd-92bf-d07f9371b765" message="#[payload]" category="com.condenast.api"/>
+				<flow-ref doc:name="error-handling-process-error-flow" doc:id="37b2b9e9-690a-49c7-aecb-1e1c63c63359" name="error-handling-process-error-flow"/>
+			</on-error-continue>
+				</error-handler >
+	</flow>
+	</mule>

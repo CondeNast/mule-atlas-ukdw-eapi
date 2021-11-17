@@ -28,3 +28,8 @@ atlas:
         billingLineItems: "v1/order/billingLineItems"
         orderLineItems: "v1/order/orderLineItems"
         actualsLineItem: "v1/order/actualLineItems"
+        healthzpath: "v1/healthz"
+        
+#Tags based for each enviroment
+log:
+  tags: "local-ukdwh-eapi"
