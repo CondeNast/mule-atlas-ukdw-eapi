@@ -20,10 +20,13 @@ atlas:
         basepath: "atlas/brightmedia-sapi"
         blipath: "v1/billinglineitem"
         flipath: "v1/fullfilmentlineitem"
+        healthzpath: "v1/healthz"
 
 #Slack Configuration for common-services
 slack:
   channel:   "test-mule-notification"
   enable:    "true"
 
-       
+#Tags based for each enviroment
+log:
+  tags: "test-ukdwh-eapi"   
