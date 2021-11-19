@@ -14,21 +14,20 @@
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
             </http:error-response>
         </http:listener>
-        <flow-ref doc:name="log-request-received" doc:id="375de400-2242-46bb-ada2-47d1fb6e2647" name="log-request-received"/>		
-		<apikit:router config-ref="atlas-ukdwh-eapi-config" />
-
-		<flow-ref doc:name="log-response-returned" doc:id="82b046d0-d3e6-4ada-8928-f7644ca2e086" name="log-response-returned" />
-		<error-handler>
-			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="758a6f64-a7f0-46c8-ae86-58fb1b367312" >
-				<flow-ref doc:name="error-handling-process-error-flow" doc:id="cda48c6c-9dfa-4136-ac7a-036e87732058" name="error-handling-process-error-flow" />
-				<flow-ref doc:name="set-error-response-sub-flow" doc:id="69109441-cd7b-451d-84e0-0add14f948be" name="set-error-response-sub-flow"/>
-				<async doc:name="Async" doc:id="a8712474-ced2-484a-bc1f-c5dbff662691">
-							<logger level="INFO" doc:name="Error Logging" doc:id="339f4450-c9a1-43c5-b749-6eab0c5f924a" />
-						</async>
-			</on-error-propagate>
+        <flow-ref doc:name="log-request-received" doc:id="375de400-2242-46bb-ada2-47d1fb6e2647" name="log-request-received" />
+        <apikit:router config-ref="atlas-ukdwh-eapi-config" />
+        <flow-ref doc:name="log-response-returned" doc:id="82b046d0-d3e6-4ada-8928-f7644ca2e086" name="log-response-returned" />
+        <error-handler>
+            <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="758a6f64-a7f0-46c8-ae86-58fb1b367312">
+                <flow-ref doc:name="error-handling-process-error-flow" doc:id="cda48c6c-9dfa-4136-ac7a-036e87732058" name="error-handling-process-error-flow" />
+                <flow-ref doc:name="set-error-response-sub-flow" doc:id="69109441-cd7b-451d-84e0-0add14f948be" name="set-error-response-sub-flow" />
+                <async doc:name="Async" doc:id="a8712474-ced2-484a-bc1f-c5dbff662691">
+                    <logger level="INFO" doc:name="Error Logging" doc:id="339f4450-c9a1-43c5-b749-6eab0c5f924a" />
+                </async>
+            </on-error-propagate>
         </error-handler>
     </flow>
-	<flow name="atlas-ukdwh-eapi-console">
+    <flow name="atlas-ukdwh-eapi-console">
         <http:listener config-ref="api-ukdwh-httpListenerConfig" path="/console/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
@@ -41,7 +40,7 @@
         <apikit:console config-ref="atlas-ukdwh-eapi-config" />
         <error-handler>
             <on-error-propagate type="APIKIT:NOT_FOUND">
-                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+                <ee:transform xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
                     <ee:message>
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
@@ -56,19 +55,25 @@ output application/json
         </error-handler>
     </flow>
     <flow name="put:\billing\billing-line-items:application\json:atlas-ukdwh-eapi-config">
-        <flow-ref doc:name="log-resource-flow-entry" doc:id="df0fea8f-ad5a-4ff9-aba6-c6d4d2aba5d5" name="log-resource-flow-entry"/>
-		<flow-ref doc:name="updateBillingLineItems" doc:id="efadc3ac-6871-4cce-9823-cd518e1d8f87" name="updateBillingLineItems"/>
-		<flow-ref doc:name="log-resource-flow-complete" doc:id="01aac9a9-5eac-4a8c-b261-92987a6925df" name="log-resource-flow-complete"/>
+        <flow-ref doc:name="log-resource-flow-entry" doc:id="df0fea8f-ad5a-4ff9-aba6-c6d4d2aba5d5" name="log-resource-flow-entry" />
+        <flow-ref doc:name="updateBillingLineItems" doc:id="efadc3ac-6871-4cce-9823-cd518e1d8f87" name="updateBillingLineItems" />
+        <flow-ref doc:name="log-resource-flow-complete" doc:id="01aac9a9-5eac-4a8c-b261-92987a6925df" name="log-resource-flow-complete" />
     </flow>
     <flow name="put:\fullfilment\fulfillment-line-items:application\json:atlas-ukdwh-eapi-config">
-        <flow-ref doc:name="log-resource-flow-entry" doc:id="83583405-b039-4cca-94bc-bd5e51f1725a" name="log-resource-flow-entry"/>
-		<flow-ref doc:name="updateFulfillmentLineItems" doc:id="49523cd7-21c3-4eb9-8296-c8fe3e148483" name="updateFulfillmentLineItems"/>
-		<flow-ref doc:name="log-resource-flow-complete" doc:id="0f442e81-16c3-4e7a-a77f-b3156efc159f" name="log-resource-flow-complete"/>
+        <flow-ref doc:name="log-resource-flow-entry" doc:id="83583405-b039-4cca-94bc-bd5e51f1725a" name="log-resource-flow-entry" />
+        <flow-ref doc:name="updateFulfillmentLineItems" doc:id="49523cd7-21c3-4eb9-8296-c8fe3e148483" name="updateFulfillmentLineItems" />
+        <flow-ref doc:name="log-resource-flow-complete" doc:id="0f442e81-16c3-4e7a-a77f-b3156efc159f" name="log-resource-flow-complete" />
+    </flow>
+    <flow name="get:\healthz\brightMediaSapi:atlas-ukdwh-eapi-config">
+        <flow-ref doc:name="healthz-check-brightMediaSapi-main-flow" doc:id="548abc97-99fd-46a3-bbe9-1ed84f0b3822" name="healthz-check-brightMediaSapi-main-flow"/>
+    </flow>
+    <flow name="get:\healthz:atlas-ukdwh-eapi-config">
+        <flow-ref doc:name="healthz-check-global-application-main-flow" doc:id="0e549186-1cb9-4f33-a0ba-29731d31601a" name="healthz-check-global-application-main-flow"/>
     </flow>
     <flow name="put:\billing-line-items:application\json:atlas-ukdwh-eapi-config">
-		<flow-ref doc:name="put:\billing\billing-line-items:application\json:atlas-ukdwh-eapi-config" doc:id="072357cf-5e25-4af0-85e1-ce3311f1ff6c" name="put:\billing\billing-line-items:application\json:atlas-ukdwh-eapi-config"/>
+        <flow-ref doc:name="put:\billing\billing-line-items:application\json:atlas-ukdwh-eapi-config" doc:id="072357cf-5e25-4af0-85e1-ce3311f1ff6c" name="put:\billing\billing-line-items:application\json:atlas-ukdwh-eapi-config"/>
     </flow>
     <flow name="put:\fli-actuals\print:application\json:atlas-ukdwh-eapi-config">
-		<flow-ref doc:name="put:\fullfilment\fulfillment-line-items:application\json:atlas-ukdwh-eapi-config" doc:id="b9fab3a6-d10b-4062-8fbb-0ac132141cfc" name="put:\fullfilment\fulfillment-line-items:application\json:atlas-ukdwh-eapi-config"/>
+        <flow-ref doc:name="put:\fullfilment\fulfillment-line-items:application\json:atlas-ukdwh-eapi-config" doc:id="b9fab3a6-d10b-4062-8fbb-0ac132141cfc" name="put:\fullfilment\fulfillment-line-items:application\json:atlas-ukdwh-eapi-config"/>
     </flow>
 </mule>
