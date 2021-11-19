@@ -3,7 +3,7 @@
     <http:listener-config name="api-ukdwh-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="${http.private.port}" />
     </http:listener-config>
-    <apikit:config name="atlas-ukdwh-eapi-config" api="resource::431ca5eb-16d8-4658-999f-651a6ad2d146:atlas-ukdwh-eapi:0.0.4:raml:zip:atlas-ukdwh-eapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="atlas-ukdwh-eapi-config" api="resource::431ca5eb-16d8-4658-999f-651a6ad2d146:atlas-ukdwh-eapi:0.0.5:raml:zip:atlas-ukdwh-eapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="atlas-ukdwh-eapi-main">
         <http:listener config-ref="api-ukdwh-httpListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -69,5 +69,11 @@ output application/json
     </flow>
     <flow name="get:\healthz:atlas-ukdwh-eapi-config">
         <flow-ref doc:name="healthz-check-global-application-main-flow" doc:id="0e549186-1cb9-4f33-a0ba-29731d31601a" name="healthz-check-global-application-main-flow"/>
+    </flow>
+    <flow name="put:\billing-line-items:application\json:atlas-ukdwh-eapi-config">
+        <flow-ref doc:name="put:\billing\billing-line-items:application\json:atlas-ukdwh-eapi-config" doc:id="072357cf-5e25-4af0-85e1-ce3311f1ff6c" name="put:\billing\billing-line-items:application\json:atlas-ukdwh-eapi-config"/>
+    </flow>
+    <flow name="put:\fli-actuals\print:application\json:atlas-ukdwh-eapi-config">
+        <flow-ref doc:name="put:\fullfilment\fulfillment-line-items:application\json:atlas-ukdwh-eapi-config" doc:id="b9fab3a6-d10b-4062-8fbb-0ac132141cfc" name="put:\fullfilment\fulfillment-line-items:application\json:atlas-ukdwh-eapi-config"/>
     </flow>
 </mule>
