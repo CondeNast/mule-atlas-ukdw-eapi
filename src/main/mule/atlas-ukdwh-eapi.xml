@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
-http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd  http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
     <http:listener-config name="api-ukdwh-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="${http.private.port}" />
     </http:listener-config>
-    <apikit:config name="atlas-ukdwh-eapi-config" api="resource::431ca5eb-16d8-4658-999f-651a6ad2d146:atlas-ukdwh-eapi:0.0.3:raml:zip:atlas-ukdwh-eapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="atlas-ukdwh-eapi-config" api="resource::431ca5eb-16d8-4658-999f-651a6ad2d146:atlas-ukdwh-eapi:0.0.5:raml:zip:atlas-ukdwh-eapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="atlas-ukdwh-eapi-main">
         <http:listener config-ref="api-ukdwh-httpListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -67,5 +65,10 @@ output application/json
 		<flow-ref doc:name="updateFulfillmentLineItems" doc:id="49523cd7-21c3-4eb9-8296-c8fe3e148483" name="updateFulfillmentLineItems"/>
 		<flow-ref doc:name="log-resource-flow-complete" doc:id="0f442e81-16c3-4e7a-a77f-b3156efc159f" name="log-resource-flow-complete"/>
     </flow>
-
+    <flow name="put:\billing-line-items:application\json:atlas-ukdwh-eapi-config">
+		<flow-ref doc:name="put:\billing\billing-line-items:application\json:atlas-ukdwh-eapi-config" doc:id="072357cf-5e25-4af0-85e1-ce3311f1ff6c" name="put:\billing\billing-line-items:application\json:atlas-ukdwh-eapi-config"/>
+    </flow>
+    <flow name="put:\fli-actuals\print:application\json:atlas-ukdwh-eapi-config">
+		<flow-ref doc:name="put:\fullfilment\fulfillment-line-items:application\json:atlas-ukdwh-eapi-config" doc:id="b9fab3a6-d10b-4062-8fbb-0ac132141cfc" name="put:\fullfilment\fulfillment-line-items:application\json:atlas-ukdwh-eapi-config"/>
+    </flow>
 </mule>
