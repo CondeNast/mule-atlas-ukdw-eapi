@@ -15,8 +15,8 @@ atlas:
       sapi:
         host: "stg.private-api-int.condenast.com"
         port: "443"
-        client_id: "ad7c27d3120c4af18cc396fadfca4fdd"
-        client_secret: "F461bbf59aDB43169F287C1C67948a0A"
+        #client_id: "ad7c27d3120c4af18cc396fadfca4fdd"
+        #client_secret: "F461bbf59aDB43169F287C1C67948a0A"
         basepath: "atlas/brightmedia-sapi"
         blipath: "v1/billinglineitem"
         flipath: "v1/fullfilmentlineitem"
