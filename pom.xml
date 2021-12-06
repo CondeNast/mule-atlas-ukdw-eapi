@@ -196,7 +196,7 @@
 				<configuration>
 					<environmentVariables>
 						<mule.env>dev</mule.env>
-						<mule.encryption.key>condenastencryptionkey</mule.encryption.key>
+						<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 					</environmentVariables>
 					<coverage>
 						<runCoverage>true</runCoverage>
