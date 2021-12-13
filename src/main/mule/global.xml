@@ -58,4 +58,6 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 			port="${atlas.sfdc.brightmedia.sapi.port}"
 			connectionIdleTimeout="60000" protocol="HTTPS"/>
 	</http:request-config>
+	<global-property doc:name="Global Property" doc:id="698d4db8-4a6b-40de-8618-a9ed99875aa5" name="mule.env" value="dev" />
+	<global-property doc:name="Global Property" doc:id="e650e388-e583-4a84-aab1-8c44b5e741dd" name="mule.encryption.key" value="C0nd3n4s!n0n9106" />
 </mule>
