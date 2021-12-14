@@ -21,7 +21,7 @@ pipeline {
           properties([pipelineTriggers([pollSCM('*/5 * * * *')])])
         }
         withMaven(maven:'maven') {
-          sh 'mvn clean install -P default'
+          sh 'mvn clean install -DskipTests -P default'
         }
       }
     }
