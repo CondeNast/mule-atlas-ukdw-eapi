@@ -14,27 +14,13 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 		<flow-ref doc:name="setHeaders" doc:id="ff2eb9fc-03ae-4426-944d-c10559ff2c3a" name="setHeaders"/>
 		<json-logger:logger doc:name="Debug Start Flow" doc:id="1d4091e6-716a-4de2-952a-8329b7c1cba0" config-ref="JSON_Logger_Config" category="com.condenast" message="updateBillingLineItems Flow Implementation Starts" priority="DEBUG"/>
 		<json-logger:logger doc:name="Debug log - Before calling updateBillingLineItems System API" doc:id="4f8d959d-0985-416f-ba2c-af8dcc8166e3" config-ref="JSON_Logger_Config" tracePoint="BEFORE_REQUEST" category="com.condenast" message="Before calling updateBillingLineItems System API call" priority="DEBUG"/>
-		<async doc:name="Async Critical Logging - Request" doc:id="3f2659a7-9b63-48a7-8438-352039417e16" >
-			<ee:transform doc:name="Prerpare Request for Logging" doc:id="4ef45283-a703-4c74-b3f6-83a99ad87645" >
-				<ee:message >
-					<ee:set-payload resource="requestRecievedLoggingPayload.dwl" />
-				</ee:message>
-			</ee:transform>
-			<json-logger:logger doc:name="Log Request" doc:id="fdab78e5-f0b2-42aa-83c8-792e85674aa0" config-ref="JSON_Logger_Config" tracePoint="BEFORE_REQUEST" category="com.condenast.api" message="updateBillingRequest"/>
-		</async>
+		<flow-ref doc:name="asyncCriticalLoggingStart" doc:id="97701d8f-9498-41d5-a901-87dd2a1f3297" name="asyncCriticalLoggingMainFlowStart"/>
 		<http:request method="PUT" doc:name="updateBillingLineItems System API" doc:id="d2325a9b-0d67-4dd3-affa-0f942bbda71e" config-ref="HTTP_SAPI_Request_configuration" path="/${atlas.sfdc.brightmedia.sapi.blipath}">
 			<http:headers><![CDATA[#[output application/java
 ---
 vars.myHeaders]]]></http:headers>
 		</http:request>
-		<async doc:name="Async Critical Logging - Response" doc:id="f8f268fc-9faa-45a1-b9f8-f03876797961" >
-			<ee:transform doc:name="Prepare Response Payload" doc:id="7fd69a8b-b962-43dc-a98e-a25c1546b786" >
-				<ee:message >
-					<ee:set-payload resource="flowCompletedLoggingPayload.dwl" />
-				</ee:message>
-			</ee:transform>
-			<json-logger:logger doc:name="Log Response" doc:id="a2285f07-0710-4de0-bab0-b1e13fa75c9d" config-ref="JSON_Logger_Config" message="updateBillingResponse" tracePoint="AFTER_REQUEST" category="com.condenast.api"/>
-		</async>
+		<flow-ref doc:name="asyncCriticalLoggingEnd" doc:id="6461f401-6e73-4f85-a1a5-f8f072f95637" name="asyncCriticalLoggingMainFlowEnd"/>
 		<json-logger:logger doc:name="Debug After calling update Billing Line Items System API" doc:id="d55c4b3a-38b2-4ec3-9e39-2a06a524b516" config-ref="JSON_Logger_Config" message="Response received from updateBillingLineItems Call" tracePoint="AFTER_REQUEST" category="com.condenast" priority="DEBUG"/>
 		<json-logger:logger doc:name="Debug End Flow" doc:id="2f6760de-b508-4389-b2aa-5a50a3a7b009" config-ref="JSON_Logger_Config" message="updateBillingLineItems Flow Implementation Ends" tracePoint="END" priority="DEBUG" category="com.condenast"/>
 	</flow>	
@@ -44,27 +30,13 @@ vars.myHeaders]]]></http:headers>
 		<flow-ref doc:name="setHeaders" doc:id="9f2e41ce-b357-4f9e-b7fd-e248101605a0" name="setHeaders"/>
 		<json-logger:logger doc:name="Debug - Start Flow" doc:id="dabcbaf0-dd8b-4c4f-a6da-4dbe0d497d59" config-ref="JSON_Logger_Config" priority="DEBUG" category="com.condenast" message="updateFulfillmentLineItems Flow Implementation Starts"/>
 		<json-logger:logger doc:name="Debug log - Before calling updateFulfillmentLineItems System API" doc:id="f6988224-d954-4b72-b8d0-037ec0816cb9" config-ref="JSON_Logger_Config" message="Before calling updateFulfillmentLineItems System API" tracePoint="BEFORE_REQUEST" priority="DEBUG" category="com.condenast"/>
-		<async doc:name="Async" doc:id="f0091c31-4c77-45c6-a4a8-9972520466d3" >
-			<ee:transform doc:name="Prerpare Request for Logging" doc:id="323094e8-4fa0-4ce9-a2ed-004a8f28ad6a" >
-				<ee:message >
-					<ee:set-payload resource="requestRecievedLoggingPayload.dwl" />
-				</ee:message>
-			</ee:transform>
-			<json-logger:logger doc:name="Log Request" doc:id="7e4ea614-3e16-432c-88b6-a31f727a1eef" config-ref="JSON_Logger_Config" message="updateFulfillmentRequest" tracePoint="BEFORE_REQUEST" category="com.condenast"/>
-		</async>
+		<flow-ref doc:name="asyncCriticalLoggingStart" doc:id="98e7833f-a72a-4691-88af-0a2ca0070fef" name="asyncCriticalLoggingMainFlowStart" />
 		<http:request method="PUT" doc:name="updateFulfillmentLineItems System API" doc:id="90c13999-320b-4934-8b58-686b8573dbda" config-ref="HTTP_SAPI_Request_configuration" path="/${atlas.sfdc.brightmedia.sapi.flipath}">
 			<http:headers><![CDATA[#[output application/java
 ---
 vars.myHeaders]]]></http:headers>
 		</http:request>
-		<async doc:name="Async" doc:id="10d57474-9d8e-41b1-a570-71f99deb5147" >
-			<ee:transform doc:name="Prepare Response for Logging" doc:id="1cc8a420-49a6-43f5-8673-cb6149c44acd" >
-				<ee:message >
-					<ee:set-payload resource="flowCompletedLoggingPayload.dwl" />
-				</ee:message>
-			</ee:transform>
-			<json-logger:logger doc:name="Log Response" doc:id="004733bf-4b4f-43b4-9c9a-754b08594f01" config-ref="JSON_Logger_Config" message="updateFulfillmentResponse" tracePoint="AFTER_REQUEST" category="com.condenast"/>
-		</async>
+		<flow-ref doc:name="asyncCriticalLoggingEnd" doc:id="6c876fa4-87d8-45dc-8c66-160b5a1c512d" name="asyncCriticalLoggingMainFlowEnd" />
 		<json-logger:logger doc:name="Debug After calling update updateFulfillment Line Items System API" doc:id="5732a1dc-558a-4819-9389-f438542ba944" config-ref="JSON_Logger_Config" category="com.condenast" message="Response received from updateFulfillmentLineItems" tracePoint="AFTER_REQUEST" priority="DEBUG"/>
 		<json-logger:logger doc:name="Debug Response Payload" doc:id="a1fca099-f332-4287-acec-3990b9c3ac68" config-ref="JSON_Logger_Config" message="updateFulfillmentLineItems Flow Implementation Ends" tracePoint="END" category="com.condenast" priority="DEBUG"/>
 	</flow>

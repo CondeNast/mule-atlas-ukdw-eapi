@@ -20,14 +20,7 @@ http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/m
         <flow-ref doc:name="log-response-returned" doc:id="82b046d0-d3e6-4ada-8928-f7644ca2e086" name="log-response-returned" />
         <error-handler>
             <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="758a6f64-a7f0-46c8-ae86-58fb1b367312">
-                <async doc:name="Async Critical Logging - Error" doc:id="a8712474-ced2-484a-bc1f-c5dbff662691">
-                    <ee:transform doc:name="Prepare Error Payload" doc:id="a4b5ea2a-b4aa-4f8d-8d8b-03360137eab1" >
-						<ee:message >
-							<ee:set-payload resource="errorLoggingPayload.dwl" />
-						</ee:message>
-					</ee:transform>
-					<json-logger:logger doc:name="Logger" doc:id="9575c4b8-1b14-4074-b7c5-7809df8dcc88" config-ref="JSON_Logger_Config" message="ErrorResponseCustom" tracePoint="EXCEPTION" priority="ERROR" category="com.condenast"/>
-                </async>
+				<flow-ref doc:name="asyncCriticalLoggingErrorFlow" doc:id="be40d1f3-ca7c-40af-b63f-01aa0f83aa95" name="asyncCriticalLoggingErrorMainFlow"/>
 				<flow-ref doc:name="error-handling-process-error-flow" doc:id="cda48c6c-9dfa-4136-ac7a-036e87732058" name="error-handling-process-error-flow" />
             </on-error-propagate>
         </error-handler>
