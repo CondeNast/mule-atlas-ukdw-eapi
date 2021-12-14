@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">	
+	<sub-flow name="asyncCriticalLoggingMainFlowStart" doc:id="0c736855-bbed-4162-af97-ca3adf1949b7" >
+		<async doc:name="Async Critical Logging Flow Start" doc:id="1585654d-d4b8-41e6-9657-f959ec258a3e" >
+			<ee:transform doc:name="Prepare Request Properties" doc:id="9f59bad9-aba7-4691-a4b1-e158b130ff96">
+			<ee:variables>
+				<ee:set-variable variableName="requestHeaders"><![CDATA[%dw 2.0
+output application/json
+---
+attributes.headers]]></ee:set-variable>
+				<ee:set-variable variableName="requestPayload"><![CDATA[%dw 2.0
+output application/json
+---
+payload default null]]></ee:set-variable>
+				<ee:set-variable variableName="requestQueryParams"><![CDATA[%dw 2.0
+output application/json
+---
+attributes.queryParams default null]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+			<ee:transform doc:name="Prerpare Request for Logging" doc:id="cad99b20-e298-40cb-a9f0-bebf5315e707" >
+				<ee:message >
+					<ee:set-payload resource="requestRecievedLoggingPayload.dwl" />
+				</ee:message>
+			</ee:transform>
+			<json-logger:logger doc:name="Log-Request" doc:id="1653992f-e345-46e8-9f5f-3991b57c5321" config-ref="JSON_Logger_Config" message="updateFulfillmentRequest" tracePoint="BEFORE_REQUEST" category="com.condenast"/>
+		</async>
+	</sub-flow>
+	<sub-flow name="asyncCriticalLoggingMainFlowEnd" doc:id="b1495209-f988-4916-b10d-d9036d91e7f5" >
+		<async doc:name="Async Critical Logging Flow End" doc:id="96fbf717-211d-42b9-ab29-8f1a9425bf44" >
+			<ee:transform doc:name="Prepare Response Properties" doc:id="f72e321b-7a55-4833-b6f1-88040306ffd5">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="responseHeaders"><![CDATA[%dw 2.0
+output application/json
+---
+vars.outboundHeaders default null]]></ee:set-variable>
+				<ee:set-variable variableName="responsePayload"><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+			<ee:transform doc:name="Prepare Response for Logging" doc:id="9017507c-e4fb-49b7-8ee5-08dba735e96d" >
+				<ee:message >
+					<ee:set-payload resource="flowCompletedLoggingPayload.dwl" />
+				</ee:message>
+			</ee:transform>
+			<json-logger:logger doc:name="Log-Response" doc:id="f92ea707-dfc4-4c9d-b7a1-9211d07283d2" config-ref="JSON_Logger_Config" message="updateFulfillmentResponse" tracePoint="AFTER_REQUEST" category="com.condenast"/>
+		</async>
+	</sub-flow>
+	<sub-flow name="asyncCriticalLoggingErrorMainFlow" doc:id="2bd295d9-ed2f-4f7e-869d-ad68791d9799" >
+		<async doc:name="Async Critical Logging Error" doc:id="ced24032-2a17-476e-acbe-195e390e5e8d" >
+                    <ee:transform doc:name="Prepare Error Payload" doc:id="836fd081-7549-4e80-8436-1fb72d68173e" >
+						<ee:message >
+							<ee:set-payload resource="errorLoggingPayload.dwl" />
+						</ee:message>
+					</ee:transform>
+		<json-logger:logger doc:name="Log-Error" doc:id="f0a53d13-f04b-4d08-9e56-e1f900091467" config-ref="JSON_Logger_Config" message="ErrorResponseCustom" tracePoint="EXCEPTION" priority="ERROR" category="com.condenast"/>
+		</async>
+	</sub-flow>
+	</mule>

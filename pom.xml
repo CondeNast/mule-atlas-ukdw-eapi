@@ -59,6 +59,19 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>stg</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<packaging.type>mule-application</packaging.type>
+				<mule.env>stg</mule.env>
+				<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
+				<env.anypoint.client.id>2447dbf69d8244a9a0a0751f725f45bd</env.anypoint.client.id>
+				<env.anypoint.client.secret>CE5d084bEAf14b1Aa8EA1D8b21D23c19</env.anypoint.client.secret>
+			</properties>
+		</profile>
+		<profile>
 			<id>test</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -183,7 +196,7 @@
 				<configuration>
 					<environmentVariables>
 						<mule.env>dev</mule.env>
-						<mule.encryption.key>condenastencryptionkey</mule.encryption.key>
+						<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 					</environmentVariables>
 					<coverage>
 						<runCoverage>true</runCoverage>
@@ -274,7 +287,7 @@
 		<dependency>
 			<groupId>431ca5eb-16d8-4658-999f-651a6ad2d146</groupId>
 			<artifactId>atlas-ukdwh-eapi</artifactId>
-			<version>0.0.3</version>
+			<version>0.0.5</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>
