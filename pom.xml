@@ -160,7 +160,6 @@
 						<workers>1</workers>
 						<workerType>MICRO</workerType>
 						<environment>${mule.env}</environment>
-						<loggingCustomLog4JEnabled>true</loggingCustomLog4JEnabled>
 						<properties>
 							<mule.env>${mule.env}</mule.env>
 							<mule.encryption.key>${mule.encryption.key}</mule.encryption.key>
