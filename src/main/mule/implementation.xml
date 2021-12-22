@@ -12,33 +12,33 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 		doc:id="b5a9a213-48cd-4d70-84af-bc9340212afe">
 		
 		<flow-ref doc:name="setHeaders" doc:id="ff2eb9fc-03ae-4426-944d-c10559ff2c3a" name="setHeaders"/>
-		<logger level="DEBUG" doc:name="Debug - Start Flow" doc:id="725e8aab-4a5d-42a6-9edf-41b5096da91a" message="TRACE_POINT: START: updateBillingLineItems Flow Implementation Starts" category="com.condenast.api"/>
-		<logger level="DEBUG" doc:name="Debug log - Before calling updateBillingLineItems System API call" doc:id="3cab268f-3a50-4390-b7ab-6718c365f904" message="TRACE_POINT: Before Calling Update invoiceBillingLineItems System API call" category="com.condenast.api"/>		
-		<logger level="DEBUG" doc:name="Debug log - Message Payload" doc:id="380b2aa8-6807-468a-9998-94634978e337" message="TRACE_POINT: MSG_PAYLOAD: #[payload]" category="com.condenast.api"/>
+		<json-logger:logger doc:name="Debug Start Flow" doc:id="1d4091e6-716a-4de2-952a-8329b7c1cba0" config-ref="JSON_Logger_Config" category="com.condenast" message="updateBillingLineItems Flow Implementation Starts" priority="DEBUG"/>
+		<json-logger:logger doc:name="Debug log - Before calling updateBillingLineItems System API" doc:id="4f8d959d-0985-416f-ba2c-af8dcc8166e3" config-ref="JSON_Logger_Config" tracePoint="BEFORE_REQUEST" category="com.condenast" message="Before calling updateBillingLineItems System API call" priority="DEBUG"/>
+		<flow-ref doc:name="asyncCriticalLoggingStart" doc:id="97701d8f-9498-41d5-a901-87dd2a1f3297" name="asyncCriticalLoggingMainFlowStart"/>
 		<http:request method="PUT" doc:name="updateBillingLineItems System API" doc:id="d2325a9b-0d67-4dd3-affa-0f942bbda71e" config-ref="HTTP_SAPI_Request_configuration" path="/${atlas.sfdc.brightmedia.sapi.blipath}">
 			<http:headers><![CDATA[#[output application/java
 ---
 vars.myHeaders]]]></http:headers>
 		</http:request>
-		<logger level="DEBUG" doc:name="Debug After calling update Billing Line Items System  API call" doc:id="443bf889-18cc-417c-a5f4-f2fc06d2bab4" message="TRACE_POINT: updateBillingLineItems , MESSAGE: Response received from updateBillingLineItems Call" category="com.condenast.api"/>
-		<logger level="DEBUG" doc:name="Debug Response Payload" doc:id="3c158b82-82cc-4016-bccd-73d5e247c8a6" message="TRACE_POINT: RESP_PAYLOAD: #[payload]" category="com.condenast.api"/>
-		<flow-ref doc:name="prepareResponse" doc:id="9b33ec91-6e27-42bd-9560-eec22598c68a" name="prepareResponse_SubFlow"/>
+		<flow-ref doc:name="asyncCriticalLoggingEnd" doc:id="6461f401-6e73-4f85-a1a5-f8f072f95637" name="asyncCriticalLoggingMainFlowEnd"/>
+		<json-logger:logger doc:name="Debug After calling update Billing Line Items System API" doc:id="d55c4b3a-38b2-4ec3-9e39-2a06a524b516" config-ref="JSON_Logger_Config" message="Response received from updateBillingLineItems Call" tracePoint="AFTER_REQUEST" category="com.condenast" priority="DEBUG"/>
+		<json-logger:logger doc:name="Debug End Flow" doc:id="2f6760de-b508-4389-b2aa-5a50a3a7b009" config-ref="JSON_Logger_Config" message="updateBillingLineItems Flow Implementation Ends" tracePoint="END" priority="DEBUG" category="com.condenast"/>
 	</flow>	
 		<flow name="updateFulfillmentLineItems"
 		doc:id="0f962fb8-9dc7-4be9-af42-d416586952f2">
 		
 		<flow-ref doc:name="setHeaders" doc:id="9f2e41ce-b357-4f9e-b7fd-e248101605a0" name="setHeaders"/>
-		<logger level="DEBUG" doc:name="Debug - Start Flow" doc:id="444dc397-b1ad-45f8-b471-5853e93495c4" message="TRACE_POINT: START: updateFulfillmentLineItems Flow Implementation Starts" category="com.condenast.api"/>
-		<logger level="DEBUG" doc:name="Debug log - Before calling updateFulfillmentLineItems System API call" doc:id="0a4d4a33-2e0a-48ef-b3de-2b335cf33e8c" message="TRACE_POINT: Before Calling Update updateFulfillmentLineItems System API call" category="com.condenast.api"/>		
-		<logger level="DEBUG" doc:name="Debug log - Message Payload" doc:id="e53bf7c0-d6bd-40df-9b1c-8c049cc82336" message="TRACE_POINT: MSG_PAYLOAD: #[payload]" category="com.condenast.api"/>
+		<json-logger:logger doc:name="Debug - Start Flow" doc:id="dabcbaf0-dd8b-4c4f-a6da-4dbe0d497d59" config-ref="JSON_Logger_Config" priority="DEBUG" category="com.condenast" message="updateFulfillmentLineItems Flow Implementation Starts"/>
+		<json-logger:logger doc:name="Debug log - Before calling updateFulfillmentLineItems System API" doc:id="f6988224-d954-4b72-b8d0-037ec0816cb9" config-ref="JSON_Logger_Config" message="Before calling updateFulfillmentLineItems System API" tracePoint="BEFORE_REQUEST" priority="DEBUG" category="com.condenast"/>
+		<flow-ref doc:name="asyncCriticalLoggingStart" doc:id="98e7833f-a72a-4691-88af-0a2ca0070fef" name="asyncCriticalLoggingMainFlowStart" />
 		<http:request method="PUT" doc:name="updateFulfillmentLineItems System API" doc:id="90c13999-320b-4934-8b58-686b8573dbda" config-ref="HTTP_SAPI_Request_configuration" path="/${atlas.sfdc.brightmedia.sapi.flipath}">
 			<http:headers><![CDATA[#[output application/java
 ---
 vars.myHeaders]]]></http:headers>
 		</http:request>
-		<logger level="DEBUG" doc:name="Debug After calling update updateFulfillment Line Items System  API call" doc:id="f8ca2793-b654-4c11-9adb-072508ba9ffe" message="TRACE_POINT: updateFulfillmentLineItems , MESSAGE: Response received from updateFulfillmentLineItems Call" category="com.condenast.api"/>
-		<logger level="DEBUG" doc:name="Debug Response Payload" doc:id="172e19a1-75ee-4c65-ab84-6aa85958ddc6" message="TRACE_POINT: RESP_PAYLOAD: #[payload]" category="com.condenast.api"/>
-		<flow-ref doc:name="prepareResponse" doc:id="d0f08914-dfdb-4b2e-85b7-b4cb4fb5167a" name="prepareResponse_SubFlow"/>
+		<flow-ref doc:name="asyncCriticalLoggingEnd" doc:id="6c876fa4-87d8-45dc-8c66-160b5a1c512d" name="asyncCriticalLoggingMainFlowEnd" />
+		<json-logger:logger doc:name="Debug After calling update updateFulfillment Line Items System API" doc:id="5732a1dc-558a-4819-9389-f438542ba944" config-ref="JSON_Logger_Config" category="com.condenast" message="Response received from updateFulfillmentLineItems" tracePoint="AFTER_REQUEST" priority="DEBUG"/>
+		<json-logger:logger doc:name="Debug Response Payload" doc:id="a1fca099-f332-4287-acec-3990b9c3ac68" config-ref="JSON_Logger_Config" message="updateFulfillmentLineItems Flow Implementation Ends" tracePoint="END" category="com.condenast" priority="DEBUG"/>
 	</flow>
 	<sub-flow name="prepareResponse_SubFlow" doc:id="3696c526-8ae3-46a8-9ff0-99dcfea53f1e" >
 				<ee:transform doc:name="Prepare Response Headers" doc:id="14cbd8fe-55b1-40e3-bb67-478f516d5fd9">
@@ -54,7 +54,7 @@ output application/json
 	// Source and Target will be switched as per business requirement
 	"x-source": vars.myHeaders['x-target'],
 	"x-target": vars.myHeaders['x-source'],
-	"x-message-type": "MS_STS",
+	"x-message-type": vars.myHeaders['x-message-type'],
 	"x-message-version": "1.0.0",
 	"x-generation-time": now(),
 	"x-message-id": vars.myHeaders['x-message-id'],
@@ -89,6 +89,6 @@ payload[0].batchResult]]></ee:set-payload>
 		</choice>
 	</sub-flow>
 	<sub-flow name="setHeaders" doc:id="153b763f-bf36-49e2-acae-37053c6b6a6e" >
-	<set-variable value="#[output application/json --- { &quot;x-message-version&quot;: attributes.headers.&quot;x-message-version&quot;, &quot;x-source&quot;: attributes.headers.&quot;x-source&quot;, &quot;x-target&quot;: attributes.headers.&quot;x-target&quot;, &quot;x-generation-time&quot;: attributes.headers.&quot;x-generation-time&quot;, &quot;x-message-type&quot;: &quot;MS_STS&quot;, &quot;x-message-id&quot;: attributes.headers.&quot;x-message-id&quot;, &quot;client_id&quot;: Mule::p('atlas.sfdc.brightmedia.sapi.client_id'), &quot;client_secret&quot;: Mule::p('atlas.sfdc.brightmedia.sapi.client_secret')  }]" doc:name="Set myHeaders" doc:id="49f57642-420c-4dd9-b019-a51525634b91" variableName="myHeaders" />
+	<set-variable value="#[output application/json --- { &quot;x-message-version&quot;: attributes.headers.&quot;x-message-version&quot;, &quot;x-source&quot;: attributes.headers.&quot;x-source&quot;, &quot;x-target&quot;: attributes.headers.&quot;x-target&quot;, &quot;x-generation-time&quot;: attributes.headers.&quot;x-generation-time&quot;, &quot;x-message-type&quot;: attributes.headers.&quot;x-message-type&quot;, &quot;x-message-id&quot;: attributes.headers.&quot;x-message-id&quot;, &quot;client_id&quot;: Mule::p('secure::atlas.sfdc.brightmedia.sapi.client_id'), &quot;client_secret&quot;: Mule::p('secure::atlas.sfdc.brightmedia.sapi.client_secret')  }]" doc:name="Set myHeaders" doc:id="49f57642-420c-4dd9-b019-a51525634b91" variableName="myHeaders" />
 	</sub-flow>	
 </mule>
