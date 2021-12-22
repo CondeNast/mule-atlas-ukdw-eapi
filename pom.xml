@@ -30,6 +30,8 @@
 				<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 				<env.anypoint.client.id>2447dbf69d8244a9a0a0751f725f45bd</env.anypoint.client.id>
 				<env.anypoint.client.secret>CE5d084bEAf14b1Aa8EA1D8b21D23c19</env.anypoint.client.secret>
+				<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>				
+				<elk.host.url>https://search-mule-atlas-logs-non-prod-arc4bioimxakdjjtclxg5wpzm4.eu-west-1.es.amazonaws.com</elk.host.url>
 			</properties>
 		</profile>
 		<profile>
@@ -43,6 +45,8 @@
 				<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 				<env.anypoint.client.id>2447dbf69d8244a9a0a0751f725f45bd</env.anypoint.client.id>
 				<env.anypoint.client.secret>CE5d084bEAf14b1Aa8EA1D8b21D23c19</env.anypoint.client.secret>
+				<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>				
+				<elk.host.url>https://search-mule-atlas-logs-non-prod-arc4bioimxakdjjtclxg5wpzm4.eu-west-1.es.amazonaws.com</elk.host.url>
 			</properties>
 		</profile>
 		<profile>
@@ -56,6 +60,7 @@
 				<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 				<env.anypoint.client.id>2447dbf69d8244a9a0a0751f725f45bd</env.anypoint.client.id>
 				<env.anypoint.client.secret>CE5d084bEAf14b1Aa8EA1D8b21D23c19</env.anypoint.client.secret>
+				<elk.host.url>https://search-mule-atlas-logs-non-prod-arc4bioimxakdjjtclxg5wpzm4.eu-west-1.es.amazonaws.com</elk.host.url>
 			</properties>
 		</profile>
 		<profile>
@@ -69,6 +74,8 @@
 				<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 				<env.anypoint.client.id>2447dbf69d8244a9a0a0751f725f45bd</env.anypoint.client.id>
 				<env.anypoint.client.secret>CE5d084bEAf14b1Aa8EA1D8b21D23c19</env.anypoint.client.secret>
+				<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>				
+				<elk.host.url>https://search-mule-atlas-logs-non-prod-arc4bioimxakdjjtclxg5wpzm4.eu-west-1.es.amazonaws.com</elk.host.url>				
 			</properties>
 		</profile>
 		<profile>
@@ -82,6 +89,8 @@
 				<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 				<env.anypoint.client.id>2447dbf69d8244a9a0a0751f725f45bd</env.anypoint.client.id>
 				<env.anypoint.client.secret>CE5d084bEAf14b1Aa8EA1D8b21D23c19</env.anypoint.client.secret>
+				<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>				
+				<elk.host.url>https://search-mule-atlas-logs-non-prod-arc4bioimxakdjjtclxg5wpzm4.eu-west-1.es.amazonaws.com</elk.host.url>				
 			</properties>
 		</profile>
 		<profile>
@@ -95,6 +104,8 @@
 				<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 				<env.anypoint.client.id>2447dbf69d8244a9a0a0751f725f45bd</env.anypoint.client.id>
 				<env.anypoint.client.secret>CE5d084bEAf14b1Aa8EA1D8b21D23c19</env.anypoint.client.secret>
+				<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>				
+				<elk.host.url>https://search-mule-atlas-logs-prod-kxupezq2dij5msvtzghhmxviti.eu-west-1.es.amazonaws.com/</elk.host.url>			
 			</properties>
 		</profile>
 	</profiles>
@@ -164,8 +175,9 @@
 							<mule.env>${mule.env}</mule.env>
 							<mule.encryption.key>${mule.encryption.key}</mule.encryption.key>
 							<anypoint.platform.client_id>${env.anypoint.client.id}</anypoint.platform.client_id>
-							<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>
 							<anypoint.platform.client_secret>${env.anypoint.client.secret}</anypoint.platform.client_secret>
+							<log4j2.formatMsgNoLookups>${log4j2.formatMsgNoLookups}</log4j2.formatMsgNoLookups>
+							<elk.host.url>${elk.host.url}</elk.host.url>							
 						</properties>
 					</cloudHubDeployment>
 				</configuration>
@@ -202,11 +214,9 @@
 					<coverage>
 						<runCoverage>true</runCoverage>
 						<failBuild>false</failBuild>
-
 						<requiredApplicationCoverage>75</requiredApplicationCoverage>
 						<requiredResourceCoverage>50</requiredResourceCoverage>
 						<requiredFlowCoverage>50</requiredFlowCoverage>
-
 						<formats>
 							<format>console</format>
 							<format>html</format>
