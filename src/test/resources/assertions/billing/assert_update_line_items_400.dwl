@@ -1,18 +1,7 @@
 %dw 2.0
 import * from dw::test::Asserts
 ---
-payload must equalTo({
-  Status: "Failure",
-  Errors: [
-    {
-      Error: {
-        Severity: "Fatal",
-        Code: 400,
-        Summary: "Request Failed.",
-        Messages: [
-          ""
-        ]
-      }
-    }
-  ]
-})
+payload  must [ 
+	$.errorDetails[0] must haveKey("code")
+	, $.errorDetails[0].code must equalTo(400)
+]
