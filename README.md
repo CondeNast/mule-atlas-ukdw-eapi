@@ -22,6 +22,7 @@ This API endpoint accepts FLI data containing FLI Id's, status and invokes Brigh
 Returns success status after successfully updating FLI's and updates will be visible in Salesforce Console.
 
 **PUT : /fli-actuals/print (Alias of /billing/billing-line-items)***
+
 **PUT : /billing-line-items (Alias of /fullfilment/fulfillment-line-items)***
 
 **GET : /healthz***
