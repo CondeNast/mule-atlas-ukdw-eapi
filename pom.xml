@@ -298,7 +298,7 @@
 		<dependency>
 			<groupId>431ca5eb-16d8-4658-999f-651a6ad2d146</groupId>
 			<artifactId>atlas-ukdwh-eapi</artifactId>
-			<version>0.0.5</version>
+			<version>0.0.6</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>
