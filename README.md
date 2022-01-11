@@ -1,8 +1,7 @@
 # mule-atlas-ukdw-eapi
-Atlas UKDW experience API accepts update requests for BLI's and FLI's. It allows consumers to update FLI's and BLI's on Salesforce Instance.
 
-Dedicated UKDW EAPI enables UKDW team to perform FLI and BLI updates.
-
+Atlas UKDW Experience API consolidates Order FLI Inbound Endpoint and Order BLI Inbound Endpoint.
+It accepts PUT requests from UKDW and allows consumers to update FLI's, BLI's on Salesforce Instance.
 This api receives the FLI's or BLI's in request payload, updates data in Salesforce Console and returns response.
 
 To deploy the api locally, we need to pass below runtime arguments:
