@@ -21,13 +21,13 @@ Returns success status after successfully updating BLI's and updates will be vis
 This API endpoint accepts FLI data containing FLI Id's, status and invokes Brightmedia /fullfilmentlineitem endpoint to perform Salesforce Update.
 Returns success status after successfully updating FLI's and updates will be visible in Salesforce Console.
 
-**PUT : /fli-actuals/print (Alias of /billing/billing-line-items) **
-**PUT : /billing-line-items (Alias of /fullfilment/fulfillment-line-items) **
+**PUT : /fli-actuals/print (Alias of /billing/billing-line-items) ***
+**PUT : /billing-line-items (Alias of /fullfilment/fulfillment-line-items) ***
 
-**GET : /healthz **
+**GET : /healthz ***
 
 This API endpoint returns health of UKDW Experience API
 
-**GET : /healthz/brightMediaSapi **
+**GET : /healthz/brightMediaSapi ***
 
 This API endpoint returns health of connection between UKDW Experience API and Brightmedia System API
