@@ -10,12 +10,12 @@ To deploy the api locally, we need to pass below runtime arguments:
 
 The UKDW experience API is used for the following use cases:
 
-**1. PUT : /billing/billing-line-items**
+**PUT : /billing/billing-line-items**
 
 This API endpoint accepts BLI data containing BLI Id's, status and invokes Brightmedia /billinglineitem endpoint to perform Salesforce Update.
 Returns success status after successfully updating BLI's and updates will be visible in Salesforce Console.
 
-**2. PUT : /fullfilment/fulfillment-line-items**
+**PUT : /fullfilment/fulfillment-line-items**
 
 This API endpoint accepts FLI data containing FLI Id's, status and invokes Brightmedia /fullfilmentlineitem endpoint to perform Salesforce Update.
 Returns success status after successfully updating FLI's and updates will be visible in Salesforce Console.
@@ -35,7 +35,7 @@ This API endpoint returns health of connection between UKDW Experience API and B
 ## Particular Consideration for this Application
 1. Added mule-atlas-log4j-elastic-appender as a dependency to log application logs on ELK and disabled cloudhub logs.
 2. Added log4j2.formatMsgNoLookups property as true to overcome with the log4j vulnerability.
-3. Included sucure (encrypted) properties with encryption algorithm - AES and mode - CBC.
+3. Included secure (encrypted) properties with encryption algorithm - AES and mode - CBC.
 
 ## Known Errors During Exection
 NA
@@ -44,11 +44,12 @@ NA
 
 ### Logging
 There are two types of logging that can be activated in cloudhub:
+
 First is Debug Logs Provided by Developers in the Application 
 org.mule.runtime.core.api.processor.LoggerMessageProcessor DEBUG for logger only
 
 Second is Full Debug Logs implicit of Mule Internal Logs
-org.mule DEGUB
+org.mule DEBUG
 
 By providing respective values in logging settings of Runtime Manager respective Debug Logs can be activated on cloudhub
 
