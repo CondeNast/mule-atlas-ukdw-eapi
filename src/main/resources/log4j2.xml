@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Configuration>
+<Configuration packages="com.condenast.log4j.elastic.appender" status="DEBUG">
 
     <!--These are some of the loggers you can enable. 
         There are several more you can find in the documentation. 
@@ -9,12 +9,44 @@
         see them in the mule_ee.log file. -->
 
     <Appenders>
-        <RollingFile name="file" fileName="${sys:mule.home}${sys:file.separator}logs${sys:file.separator}mule-atlas-api-template.log" 
-                 filePattern="${sys:mule.home}${sys:file.separator}logs${sys:file.separator}mule-atlas-api-template-%i.log">
-            <PatternLayout pattern="%-5p %d [%t] [processor: %X{processorPath}; event: %X{correlationId}] %c: %m%n" />
-            <SizeBasedTriggeringPolicy size="10 MB" />
+        <RollingFile name="file" fileName="${sys:mule.home}${sys:file.separator}logs${sys:file.separator}mule-atlas-ukdw-eapi.log" 
+                 filePattern="${sys:mule.home}${sys:file.separator}logs${sys:file.separator}mule-atlas-ukdw-eapi-%i.log">
+            <PatternLayout >
+            <pattern>{"@timestamp":"%d{dd MMM yyyy HH:mm:ss,SSS}","level":"%p","loggerName":"%c","message":%m}%n</pattern> 
+            </PatternLayout>
+	    <SizeBasedTriggeringPolicy size="10 MB" />
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
+	<Elastic
+            name="Elastic"
+            host="${sys:elk.host.url}"
+            index="mule-log-index-${sys:mule.env}"
+            appName="cn-ext-atlas-ukdwh-eapi-${sys:mule.env}"
+            key="AKIA2CLK4RFXSRJ4JKPT"
+            secret="ZDdHbGgrZXJYc254Wm1TTHRWNXV4MTl0QzBwOWMzMklZcG9rcWNGRw=="
+            flushTimeOut="60"
+            ignoreExceptions="true" >
+            <PatternLayout pattern="%m%n"/>
+        </Elastic>
+	<Log4J2CloudhubLogAppender name="CLOUDHUB"
+			addressProvider="com.mulesoft.ch.logging.DefaultAggregatorAddressProvider"
+			applicationContext="com.mulesoft.ch.logging.DefaultApplicationContext"
+			appendRetryIntervalMs="${sys:logging.appendRetryInterval}"
+			appendMaxAttempts="${sys:logging.appendMaxAttempts}"
+			batchSendIntervalMs="${sys:logging.batchSendInterval}"
+			batchMaxRecords="${sys:logging.batchMaxRecords}"
+			memBufferMaxSize="${sys:logging.memBufferMaxSize}"
+			journalMaxWriteBatchSize="${sys:logging.journalMaxBatchSize}"
+			journalMaxFileSize="${sys:logging.journalMaxFileSize}"
+			clientMaxPacketSize="${sys:logging.clientMaxPacketSize}"
+			clientConnectTimeoutMs="${sys:logging.clientConnectTimeout}"
+			clientSocketTimeoutMs="${sys:logging.clientSocketTimeout}"
+			serverAddressPollIntervalMs="${sys:logging.serverAddressPollInterval}"
+			serverHeartbeatSendIntervalMs="${sys:logging.serverHeartbeatSendIntervalMs}"
+			statisticsPrintIntervalMs="${sys:logging.statisticsPrintIntervalMs}">
+			<PatternLayout
+				pattern="[%d{MM-dd HH:mm:ss}] %-5p %c{1} [%t]: %m%n" />
+		</Log4J2CloudhubLogAppender>
     </Appenders>
     <Loggers>
         
@@ -28,6 +60,7 @@
  
         <AsyncRoot level="INFO">
             <AppenderRef ref="file" />
+	    <AppenderRef ref="Elastic" />
         </AsyncRoot>
     </Loggers>
 </Configuration>

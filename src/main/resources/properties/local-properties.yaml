@@ -1,16 +1,7 @@
 api:
   autodiscovery:
-    id: "16584271"
-    
-
-sfdc:
-  consumer-key: "3MVG9Lf04EwncL7mmDlDlGIDsYbtAeE52S42zzocP25z5MJRUwSpk44_Hv1nPODu0q4ydkDQaJFSD3bVsrONi"
-  consumer-secret: "D7EEA6BE0B976B574FC74600CDB5908622AF0698D3F04DFD4A66A8F9D22B228A"
-  token-endpoint: "https://condenastinternational--sit2.my.salesforce.com/services/oauth2/token"
-  username: "sfmule.integration@condenast.com.sit2"
-  password: "sit2@sfdc@muleCondeNast!"
-  security-token: "0zSkeSIbXYsxJd7Ko0oDIZrKO"
-  
+    id: "17415443"
+      
 json.logger:
   disabledFields: ""
  
@@ -20,11 +11,22 @@ dlb:
 
 atlas:
   sfdc:
-    bli:
-      papi:
-        basepath: "api"
-        host: "cn-int-atlas-sfdc-bli-papi-v1-dev.ir-e1.cloudhub.io"
-        port: "80"
-        billingLineItems: "v1/order/billingLineItems"
-        orderLineItems: "v1/order/orderLineItems"
-        actualsLineItem: "v1/order/actualLineItems"
+    brightmedia:
+      sapi:
+        host: "dev.private-api-int.condenast.com"
+        port: "443"
+        #client_id: "9ca6e130f2fe47cfa6f499753723a1e5"
+        #client_secret: "0B8959FCaCEB4B8dAC22032DaC3023Ca"
+        basepath: "atlas/brightmedia-sapi"
+        blipath: "v1/billinglineitem"
+        flipath: "v1/fullfilmentlineitem"
+        healthzpath: "v1/healthz"
+    
+#Slack Configuration for common-services
+slack:
+  channel:   "local-mule-notification"
+  enable:    "true"
+
+#Tags based for each enviroment
+log:
+  tags: "local-ukdwh-eapi"

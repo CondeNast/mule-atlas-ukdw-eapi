@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
-	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
-http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+<mule xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
 	
 	<error-handler name="global-error-handler">
 		<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="d01b1c61-5771-4dd1-9939-62b5f6fa05a7" type="ANY">
+                
+			                <async doc:name="Async Critical Logging - Error" doc:id="dc589a46-6fd0-4c50-8633-4981bdb79e13">
+                    <ee:transform doc:name="Prepare Error Payload" doc:id="0ea3760b-d1b3-46d2-965b-937177a37554" >
+						<ee:message >
+							<ee:set-payload resource="errorLoggingPayload.dwl" />
+						</ee:message>
+					</ee:transform>
+					<json-logger:logger doc:name="Logger" doc:id="6302ebb8-80de-4119-a6b5-841b29b60f1d" config-ref="JSON_Logger_Config" message="ErrorResponse" tracePoint="EXCEPTION" priority="ERROR" category="com.condenast"/>
+                </async>
 			<flow-ref doc:name="error-handling-process-error-flow" doc:id="04bb5bb2-d2bd-4178-aa51-25c2ce8ee750" name="error-handling-process-error-flow"/>
 		</on-error-continue>
 		
