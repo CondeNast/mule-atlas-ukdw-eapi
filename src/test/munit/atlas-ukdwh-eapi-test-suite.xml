@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="atlas-ukdwh-eapi-test-suite.xml" />
+	<munit:test name="test-suite-put-billing-billing-line-items-success-apiKit-200" doc:id="68fe4800-89c3-4a53-8e17-01d536ab4107" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Listener" doc:id="c21c0030-2758-46f8-b60d-3fb9f4a07360" processor="http:listener">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="api-ukdwh-httpListenerConfig" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="/api/*" attributeName="path" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Billing Update" doc:id="2aad2043-37f4-48c4-bf23-dbf2ea103324" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="updateBillingLineItems System API" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="d2325a9b-0d67-4dd3-affa-0f942bbda71e" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[MunitTools::getResourceAsString('response/billing/update-line-items-response.json')]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="6e489bed-a3a2-4117-a3ea-213b3a88dea7" >
+				<munit:payload value="#[MunitTools::getResourceAsString('request/billing/update-line-items-request.json')]" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://header/billing/update-line-items-header-200.dwl')]" />
+			</munit:set-event>
+			<set-variable value="#[now()]" doc:name="Set Variable" doc:id="81438824-11ac-4771-98da-e024bcfd4e06" variableName="transactionStartTime"/>
+			<flow-ref doc:name="atlas-ukdwh-eapi-main" doc:id="2ea3de63-b8b2-4c57-b26c-70472f41a9dd" name="atlas-ukdwh-eapi-main"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert expression" doc:id="c068fff9-9778-423d-9e68-5d9a94d1f7fa" >
+				<munit-tools:that ><![CDATA[#[import assertions::billing::assert_update_line_items_200
+ ---
+assert_update_line_items_200::main({payload:payload})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="test-suite-put-billing-billing-line-items-success-200" doc:id="251c0172-08d2-43ff-a49c-f23afa660329" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Billing Update" doc:id="712a608f-b161-4995-adea-4422b47222eb" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="updateBillingLineItems System API" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="d2325a9b-0d67-4dd3-affa-0f942bbda71e" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[MunitTools::getResourceAsString('response/billing/update-line-items-response.json')]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="afbd7aae-9409-4d54-8263-c11c4ce593f6" >
+				<munit:payload value="#[MunitTools::getResourceAsString('request/billing/update-line-items-request.json')]" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://header/billing/update-line-items-header-200.dwl')]" />
+			</munit:set-event>
+			<set-variable value="#[now()]" doc:name="Set Variable" doc:id="caea8447-997d-45bc-a66d-08e0af73192d" variableName="transactionStartTime"/>
+			<flow-ref doc:name="put:\billing\billing-line-items:application\json:atlas-ukdwh-eapi-config" doc:id="1eb48381-1ef1-4a1c-96fb-70745dfc83c7" name="put:\billing\billing-line-items:application\json:atlas-ukdwh-eapi-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert expression" doc:id="016297d3-71c2-4038-b27f-3c99b4871383" >
+				<munit-tools:that ><![CDATA[#[import assertions::billing::assert_update_line_items_200
+ ---
+assert_update_line_items_200::main({payload:payload})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="test-suite-put-billing-billing-line-items-error-200" doc:id="1b6977d7-94ca-47ef-8b7e-33ce5df6b591" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Billing Update" doc:id="040312b9-c74c-4152-b820-77e7a638caf3" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="updateBillingLineItems System API" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="d2325a9b-0d67-4dd3-affa-0f942bbda71e" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="HTTP:CONNECTIVITY" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="2e5c41a6-7425-47ca-8ef6-9275f7d46c3f" >
+				<munit:payload value="#[MunitTools::getResourceAsString('request/billing/update-line-items-request.json')]" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://header/billing/update-line-items-header-200.dwl')]" />
+			</munit:set-event>
+			<set-variable value="#[now()]" doc:name="Set Variable" doc:id="7df3e1cb-c7a9-44c8-8e25-d7f91dc449fc" variableName="transactionStartTime"/>
+			<flow-ref doc:name="put:\billing\billing-line-items:application\json:atlas-ukdwh-eapi-config" doc:id="31ae58e6-75f3-48ad-a729-5e45957f91e2" name="put:\billing\billing-line-items:application\json:atlas-ukdwh-eapi-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert expression" doc:id="5758d3c9-274b-41a2-a980-53841db2a0a3" >
+				<munit-tools:that ><![CDATA[#[import assertions::billing::assert_update_line_items_503
+ ---
+assert_update_line_items_503::main({payload:payload})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="test-suite-put-fulfillment-fulfillment-line-items-success-200" doc:id="d0ed0e57-1597-41fe-85ce-2bf6f7179d91" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Fulfillment Update" doc:id="bd209785-798a-404a-974b-7ded15a8521a" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="updateFulfillmentLineItems System API" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="90c13999-320b-4934-8b58-686b8573dbda" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[MunitTools::getResourceAsString('response/fullfilment/update-line-items-response.json')]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="819d69ed-864b-46a0-9530-850f12a93c58" >
+				<munit:payload value="#[MunitTools::getResourceAsString('request/fullfilment/update-line-items-request.json')]" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://header/fullfilment/update-line-items-header-200.dwl')]" />
+			</munit:set-event>
+			<set-variable value="#[now()]" doc:name="Set Variable" doc:id="58e55d47-9aab-4884-8f02-dad349f3221d" variableName="transactionStartTime"/>
+			<flow-ref doc:name="put:\fullfilment\fulfillment-line-items:application\json:atlas-ukdwh-eapi-config" doc:id="7855da74-ff16-4aee-8fe5-87638d4b86c8" name="put:\fullfilment\fulfillment-line-items:application\json:atlas-ukdwh-eapi-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert expression" doc:id="9ead7791-5d8e-4a5d-9894-614c2e61f268" >
+				<munit-tools:that ><![CDATA[#[import assertions::fullfilment::assert_update_line_items_200
+ ---
+assert_update_line_items_200::main({payload:payload})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="test-suite-put-fulfillment-fulfillment-line-items-error" doc:id="088eb8dd-a464-4a28-97ef-0509c44a355c" description="Test" timeOut="1200000">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Fulfillment Update" doc:id="020c0f5a-070f-4d5e-bb64-b481d97758d0" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="updateFulfillmentLineItems System API" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="90c13999-320b-4934-8b58-686b8573dbda" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[MunitTools::getResourceAsString('response/fullfilment/update-line-items-response-error.json')]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="76c7eeb1-212f-4d86-8fbc-83c089caf4ac" >
+				<munit:payload value="#[MunitTools::getResourceAsString('request/fullfilment/update-line-items-request.json')]" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://header/fullfilment/update-line-items-header-200.dwl')]" />
+			</munit:set-event>
+			<set-variable value="#[now()]" doc:name="Set Variable" doc:id="1210e633-b1af-48db-844f-f517768be9a6" variableName="transactionStartTime"/>
+			<flow-ref doc:name="put:\fullfilment\fulfillment-line-items:application\json:atlas-ukdwh-eapi-config" doc:id="2faa4454-6a15-4819-afbd-517e62cdc5a6" name="put:\fullfilment\fulfillment-line-items:application\json:atlas-ukdwh-eapi-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert expression" doc:id="b8e7b7ff-6603-48db-a31e-c5afba4f557e" >
+				<munit-tools:that ><![CDATA[#[import assertions::fullfilment::assert_update_line_items_500
+ ---
+assert_update_line_items_500::main({payload:payload})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="test-suite-put-billing-billing-line-items-success-apiKit-200(alias)" doc:id="e63d0913-81c9-47bd-bf82-a9ad0d54a199" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Listener" doc:id="9dc81b0e-5263-4376-8b03-7ff4f5f1605b" processor="http:listener">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="api-ukdwh-httpListenerConfig" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="/api/*" attributeName="path" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Billing Update" doc:id="ace2fce2-b983-4373-afac-2098051f8553" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="updateBillingLineItems System API" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="d2325a9b-0d67-4dd3-affa-0f942bbda71e" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[MunitTools::getResourceAsString('response/billing/update-line-items-response.json')]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="27a04012-5bae-4ebb-a5e9-f1e17e24e2a9" >
+				<munit:payload value="#[MunitTools::getResourceAsString('request/billing/update-line-items-request.json')]" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://header/billing/update-line-items-header-200.dwl')]" />
+			</munit:set-event>
+			<set-variable value="#[now()]" doc:name="Set Variable" doc:id="7a374e7a-83a2-4f85-85b8-089c37bf4235" variableName="transactionStartTime"/>
+			<flow-ref doc:name="put:\billing-line-items:application\json:atlas-ukdwh-eapi-config" doc:id="f06415a6-6a0b-4d5f-8b6d-726759a55845" name="put:\billing-line-items:application\json:atlas-ukdwh-eapi-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert expression" doc:id="32b65734-3b3b-44ec-9ed9-66a90f722579" >
+				<munit-tools:that ><![CDATA[#[import assertions::billing::assert_update_line_items_200
+ ---
+assert_update_line_items_200::main({payload:payload})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="test-suite-put-fulfillment-fulfillment-line-items-success-200(alias)" doc:id="367cae09-e86f-4f80-a82e-12d1bb324eb6" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Fulfillment Update" doc:id="fc24068e-3641-49e3-9298-1ca8f4a11708" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="updateFulfillmentLineItems System API" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="90c13999-320b-4934-8b58-686b8573dbda" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[MunitTools::getResourceAsString('response/fullfilment/update-line-items-response.json')]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="bc98adaa-d25b-46bb-861d-e11c08b3819c" >
+				<munit:payload value="#[MunitTools::getResourceAsString('request/fullfilment/update-line-items-request.json')]" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://header/fullfilment/update-line-items-header-200.dwl')]" />
+			</munit:set-event>
+			<set-variable value="#[now()]" doc:name="Set Variable" doc:id="71623208-171b-436e-9b1d-957da582242c" variableName="transactionStartTime"/>
+			<flow-ref doc:name="put:\fli-actuals\print:application\json:atlas-ukdwh-eapi-config" doc:id="ef37c430-665b-4d62-bcf9-b6161bd2e610" name="put:\fli-actuals\print:application\json:atlas-ukdwh-eapi-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert expression" doc:id="a201196a-0a80-407f-85c9-c9f4a3e7f45b" >
+				<munit-tools:that ><![CDATA[#[import assertions::fullfilment::assert_update_line_items_200
+ ---
+assert_update_line_items_200::main({payload:payload})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="test-suite-put-billing-billing-line-items-success-apiKit-400" doc:id="6b7ef56f-9c15-491d-abcd-3251d3ced8cd" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Listener" doc:id="34944387-4dde-48f7-a426-6a4c85a23605" processor="http:listener">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="api-ukdwh-httpListenerConfig" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="/api/*" attributeName="path" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Router" doc:id="c634c264-7192-41ec-b1c6-db55feadef61" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="atlas-ukdwh-eapi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:BAD_REQUEST&#10;&#10;" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="476bd850-42b7-4f0f-a44b-a4af65a58b7a" >
+				<munit:payload value="#[MunitTools::getResourceAsString('request/billing/update-line-items-request.json')]" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://header/billing/update-line-items-header-200.dwl')]" />
+			</munit:set-event>
+			<set-variable value="#[now()]" doc:name="Set Variable" doc:id="8661fcac-5218-489a-9c62-29b1336bed18" variableName="transactionStartTime"/>
+			<try doc:name="Try" doc:id="78539c9b-cf9d-47ea-bb6f-31f9ed73bf25" >
+				<flow-ref doc:name="atlas-ukdwh-eapi-main" doc:id="1c67d65c-a316-49b1-8695-00c806020efa" name="atlas-ukdwh-eapi-main" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="b48db531-1420-47d1-a82a-dedcd5ea3aac" >
+						<logger level="INFO" doc:name="Logger" doc:id="ebd55e03-263b-49b1-a538-ec98e9b67de4" message="Expected Error Returned from Main Flow"/>
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert expression" doc:id="9c35dde0-954c-4670-a2d3-234cc360ad60" >
+				<munit-tools:that ><![CDATA[#[import assertions::billing::assert_update_line_items_400
+ ---
+assert_update_line_items_400::main({payload:payload})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="test-suite-healthz-brightmedia" doc:id="9328f4d8-997b-4b0c-8d72-b2dabc4b830f" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Fulfillment Update" doc:id="816a1cbb-e023-458f-9c4e-4c8bb536f2b7" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get BrightMedia SAPI Health" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[MunitTools::getResourceAsString('response/brightmedia/healthz-success.json')]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="26d8f862-e68e-4ce2-80b4-5f484991e8c2" >
+				<munit:payload value="#[MunitTools::getResourceAsString('request/fullfilment/update-line-items-request.json')]" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://header/fullfilment/update-line-items-header-200.dwl')]" />
+			</munit:set-event>
+			<flow-ref doc:name="Refer to get:\healthz\brightMediaSapi:atlas-ukdwh-eapi-config" doc:id="ead90efe-7e29-440f-b14d-77ed3fa0ac64" name="get:\healthz\brightMediaSapi:atlas-ukdwh-eapi-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="ab996920-d638-4150-904b-d198f6106c7b" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="test-suite-healthz-ukdw-eapi" doc:id="bb45306c-b113-4d06-92b2-f8f3a8d5c2fb" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="f0c8bbd4-307d-481c-adb5-895698e102d3" >
+				<munit:payload value="#[MunitTools::getResourceAsString('request/fullfilment/update-line-items-request.json')]" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://header/fullfilment/update-line-items-header-200.dwl')]" />
+			</munit:set-event>
+			<flow-ref doc:name="Refer to get:\healthz:atlas-ukdwh-eapi-config" doc:id="f541fad4-63f8-47f0-99bd-e244aae25402" name="get:\healthz:atlas-ukdwh-eapi-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="340f3836-203c-4cfa-aa3f-dda6dcd22060" is="#[MunitTools::notNullValue()]" expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+</mule>

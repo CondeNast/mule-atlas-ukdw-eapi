@@ -1,0 +1,30 @@
+{
+  "FLIs": [
+    {
+      "FLIId": {
+        "Type": "FLI",
+        "ReferenceIds": [
+          {
+            "SystemId": "BM",
+            "Id": "FLI-00000235-1-1"
+          }
+        ]
+      },
+      "Status": "Awaiting Copy",
+      "PageNumber": 23
+    },
+    {
+      "FLIId": {
+        "Type": "FLI",
+        "ReferenceIds": [
+          {
+            "SystemId": "BM",
+            "Id": "FLI-00000235-2-1"
+          }
+        ]
+      },
+      "Status": "Fulfilled",
+      "PageNumber": 20
+    }
+  ]
+}

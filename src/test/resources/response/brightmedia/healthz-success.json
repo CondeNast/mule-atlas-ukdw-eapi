@@ -1,0 +1,9 @@
+{
+  "MessageID": "sfdr-721e3232-d857-4a90-bfd7-9a6d9e4eb61b",
+  "APIName": "cn-int-atlas-brightmedia-sapi",
+  "APIService": "Mulesoft BrightMedia System API Application Healthz Check API",
+  "RequestBody": null,
+  "ResponseStatus": 200,
+  "ResponseBody": "Status: Request Completed.; Time of Request: 2022-01-07T06:46:11.586Z; Message: Application is running.", 
+  "Tags": "Could Not Retrieve Tags."
+}

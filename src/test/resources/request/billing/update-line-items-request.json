@@ -1,0 +1,19 @@
+{
+  "BLIs": [
+    {
+      "BLIId": {
+        "Type": "BLI",
+        "ReferenceIds": [
+          {
+            "SystemId": "BM",
+            "Id": "BLI-00002344-1-1"
+          }
+        ]
+      },
+      "Status": "Billed",
+      "InvoiceNumber": "INV10210320-02",
+      "InvoiceDate": "2020-12-25",
+      "InvoiceURL": null
+    }
+  ]
+}

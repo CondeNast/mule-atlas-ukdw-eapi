@@ -1,0 +1,11 @@
+%dw 2.0
+import * from dw::test::Asserts
+---
+payload must equalTo([
+    {
+        "batchId": 1,
+        "x-message-id": "2dd52c64-e4c6-da6d-aeb6-7a4c76d6504b",
+        "x-processing-time": "750ms",
+        "Success": "true"
+    }
+])
