@@ -21,10 +21,10 @@ pipeline {
           properties([pipelineTriggers([pollSCM('*/5 * * * *')])])
         }
         withMaven(maven:'maven') {
-          sh 'mvn clean install -DskipTests -P default'
-        }
-      }
-    }
+          sh 'mvn clean install -P default'
+          	}
+	      }
+	    }
     stage ('Deploy') {
       steps {
         withMaven(maven:'maven') {
@@ -33,4 +33,14 @@ pipeline {
       }
     }
   }
+      post {
+   		success {
+   			echo "Notification send to : ${env.MULESOFTEMAIL}"
+           	mail bcc: '', body: "DEPLOYMENT SUCCESSFUL (${env.BUILD_URL})", cc: '', from: '', replyTo: '', subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' ", to: "${env.MULESOFTEMAIL}"
+        }
+        failure {
+        	echo "Notification send to : ${env.MULESOFTEMAIL}"
+           	mail bcc: '', body: "DEPLOYMENT FAIL (${env.BUILD_URL})", cc: '', from: '', replyTo: '', subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' ", to: "${env.MULESOFTEMAIL}"
+        }
+  	}
 }
