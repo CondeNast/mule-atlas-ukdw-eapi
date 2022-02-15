@@ -10,7 +10,7 @@
 	<properties>
 		<api.groupId>431ca5eb-16d8-4658-999f-651a6ad2d146</api.groupId>
 		<api.artifactId>cn-ext-atlas-ukdwh-eapi</api.artifactId>
-		<api.version>0.0.8</api.version>
+		<api.version>0.0.9</api.version>
 		<api.major.version>v1</api.major.version>
 		<app.runtime>4.3.0-20211026</app.runtime>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -298,7 +298,7 @@
 		<dependency>
 			<groupId>431ca5eb-16d8-4658-999f-651a6ad2d146</groupId>
 			<artifactId>atlas-ukdwh-eapi</artifactId>
-			<version>0.0.8</version>
+			<version>0.0.9</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>
