@@ -26,7 +26,7 @@ http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/m
         </error-handler>
     </flow>
     <flow name="atlas-ukdwh-eapi-console">
-        <http:listener config-ref="api-ukdwh-httpListenerConfig" path="/console/*">
+        <http:listener config-ref="api-ukdwh-httpListenerConfig" path="/api/console/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
             </http:response>
