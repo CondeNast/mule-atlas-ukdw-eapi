@@ -12,7 +12,7 @@
 		<api.artifactId>cn-ext-atlas-ukdwh-eapi</api.artifactId>
 		<api.version>1.0.0</api.version>
 		<api.major.version>v1</api.major.version>
-		<app.runtime>4.3.0-20211026</app.runtime>
+		<app.runtime>4.3.0-20210622</app.runtime>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<mule.maven.plugin.version>3.4.1</mule.maven.plugin.version>
@@ -30,7 +30,7 @@
 				<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 				<env.anypoint.client.id>2447dbf69d8244a9a0a0751f725f45bd</env.anypoint.client.id>
 				<env.anypoint.client.secret>CE5d084bEAf14b1Aa8EA1D8b21D23c19</env.anypoint.client.secret>
-				<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>				
+				<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>
 				<elk.host.url>https://search-mule-atlas-logs-non-prod-arc4bioimxakdjjtclxg5wpzm4.eu-west-1.es.amazonaws.com</elk.host.url>
 			</properties>
 		</profile>
@@ -45,7 +45,7 @@
 				<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 				<env.anypoint.client.id>2447dbf69d8244a9a0a0751f725f45bd</env.anypoint.client.id>
 				<env.anypoint.client.secret>CE5d084bEAf14b1Aa8EA1D8b21D23c19</env.anypoint.client.secret>
-				<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>				
+				<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>
 				<elk.host.url>https://search-mule-atlas-logs-non-prod-arc4bioimxakdjjtclxg5wpzm4.eu-west-1.es.amazonaws.com</elk.host.url>
 			</properties>
 		</profile>
@@ -74,8 +74,8 @@
 				<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 				<env.anypoint.client.id>2447dbf69d8244a9a0a0751f725f45bd</env.anypoint.client.id>
 				<env.anypoint.client.secret>CE5d084bEAf14b1Aa8EA1D8b21D23c19</env.anypoint.client.secret>
-				<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>				
-				<elk.host.url>https://search-mule-atlas-logs-non-prod-arc4bioimxakdjjtclxg5wpzm4.eu-west-1.es.amazonaws.com</elk.host.url>				
+				<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>
+				<elk.host.url>https://search-mule-atlas-logs-non-prod-arc4bioimxakdjjtclxg5wpzm4.eu-west-1.es.amazonaws.com</elk.host.url>
 			</properties>
 		</profile>
 		<profile>
@@ -89,8 +89,8 @@
 				<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 				<env.anypoint.client.id>2447dbf69d8244a9a0a0751f725f45bd</env.anypoint.client.id>
 				<env.anypoint.client.secret>CE5d084bEAf14b1Aa8EA1D8b21D23c19</env.anypoint.client.secret>
-				<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>				
-				<elk.host.url>https://search-mule-atlas-logs-non-prod-arc4bioimxakdjjtclxg5wpzm4.eu-west-1.es.amazonaws.com</elk.host.url>				
+				<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>
+				<elk.host.url>https://search-mule-atlas-logs-non-prod-arc4bioimxakdjjtclxg5wpzm4.eu-west-1.es.amazonaws.com</elk.host.url>
 			</properties>
 		</profile>
 		<profile>
@@ -104,8 +104,8 @@
 				<mule.encryption.key>C0nd3n4s!n0n9106</mule.encryption.key>
 				<env.anypoint.client.id>2447dbf69d8244a9a0a0751f725f45bd</env.anypoint.client.id>
 				<env.anypoint.client.secret>CE5d084bEAf14b1Aa8EA1D8b21D23c19</env.anypoint.client.secret>
-				<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>				
-				<elk.host.url>https://search-mule-atlas-logs-prod-kxupezq2dij5msvtzghhmxviti.eu-west-1.es.amazonaws.com/</elk.host.url>			
+				<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>
+				<elk.host.url>https://search-mule-atlas-logs-prod-kxupezq2dij5msvtzghhmxviti.eu-west-1.es.amazonaws.com/</elk.host.url>
 			</properties>
 		</profile>
 	</profiles>
@@ -177,7 +177,7 @@
 							<anypoint.platform.client_id>${env.anypoint.client.id}</anypoint.platform.client_id>
 							<anypoint.platform.client_secret>${env.anypoint.client.secret}</anypoint.platform.client_secret>
 							<log4j2.formatMsgNoLookups>${log4j2.formatMsgNoLookups}</log4j2.formatMsgNoLookups>
-							<elk.host.url>${elk.host.url}</elk.host.url>							
+							<elk.host.url>${elk.host.url}</elk.host.url>
 						</properties>
 					</cloudHubDeployment>
 				</configuration>
