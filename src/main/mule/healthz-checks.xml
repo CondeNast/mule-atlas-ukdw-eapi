@@ -23,8 +23,8 @@ output application/json
 ---
 {
 	"apiService": "Mulesoft UKDWH EAPI Application Healthz Check API",
-	"requestBody": payload,
-	"messageId": attributes.headers."x-message-id",
+	"requestBody": payload default null,
+	"messageId": attributes.headers."x-message-id" default correlationId,
 	"apiName": Mule::p('api.name'),
 	"jobType": "Http Request Trigger",
 	"timeOfRequest": now() >> 'UTC'
@@ -69,7 +69,7 @@ output application/json
 }]]></ee:set-payload>
 					</ee:message>
 				</ee:transform>
-				<logger level="ERROR" doc:name="Error Logging" doc:id="38034242-9470-45cf-a630-d92f0faa2b3c" message="#[payload]" category="com.condenast.api"/>
+				<logger level="ERROR" doc:name="ERROR: Log Error" doc:id="38034242-9470-45cf-a630-d92f0faa2b3c" message="#[payload]" category="com.condenast.api"/>
 				<flow-ref doc:name="error-handling-process-error-flow" doc:id="4652f056-ab8e-4018-be4a-833db90d5804" name="error-handling-process-error-flow"/>
 			</on-error-continue>
 		</error-handler>
@@ -89,8 +89,8 @@ output application/json
 ---
 {
 	"apiService": "Mulesoft UKDWH SAPI Application BrightMedia Connection Healthz Check API",
-	"requestBody": payload,
-	"messageId": attributes.headers."x-message-id",
+	"requestBody": payload default null,
+	"messageId": attributes.headers."x-message-id" default correlationId,
 	"apiName": Mule::p('api.name'),
 	"jobType": "Http Request Trigger",
 	"timeOfRequest": now() >> 'UTC'
@@ -141,7 +141,7 @@ output application/json
 }]]></ee:set-payload>
 					</ee:message>
 				</ee:transform>
-				<logger level="ERROR" doc:name="Error Logging" doc:id="0493b4d8-469c-4bbd-92bf-d07f9371b765" message="#[payload]" category="com.condenast.api"/>
+				<logger level="ERROR" doc:name="ERROR: Log Error" doc:id="0493b4d8-469c-4bbd-92bf-d07f9371b765" message="#[payload]" category="com.condenast.api"/>
 				<flow-ref doc:name="error-handling-process-error-flow" doc:id="37b2b9e9-690a-49c7-aecb-1e1c63c63359" name="error-handling-process-error-flow"/>
 			</on-error-continue>
 				</error-handler >

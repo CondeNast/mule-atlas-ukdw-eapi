@@ -1,6 +1,31 @@
 api:
   autodiscovery:
-    id: "16520548"
+    #id: "16520548"
+    id: "17674064"
   
 json.logger:
   disabledFields: ""
+  
+dlb:
+  internal:
+    hostname: "private-api-int.condenast.com"
+
+atlas:
+  sfdc:
+    brightmedia:
+      sapi:
+        host: "private-api-int.condenast.com"
+        port: "443"
+        basepath: "atlas/brightmedia-sapi"
+        blipath: "v1/billinglineitem"
+        flipath: "v1/fullfilmentlineitem"
+        healthzpath: "v1/healthz"
+
+#Slack Configuration for common-services
+slack:
+  channel:   "prod-mule-notification"
+  enable:    "true"
+
+#Tags based for each enviroment
+log:
+  tags: "prod-ukdwh-eapi"   

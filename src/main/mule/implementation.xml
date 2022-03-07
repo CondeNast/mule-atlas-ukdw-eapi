@@ -40,55 +40,7 @@ vars.myHeaders]]]></http:headers>
 		<json-logger:logger doc:name="Debug After calling update updateFulfillment Line Items System API" doc:id="5732a1dc-558a-4819-9389-f438542ba944" config-ref="JSON_Logger_Config" category="com.condenast" message="Response received from updateFulfillmentLineItems" tracePoint="AFTER_REQUEST" priority="DEBUG"/>
 		<json-logger:logger doc:name="Debug Response Payload" doc:id="a1fca099-f332-4287-acec-3990b9c3ac68" config-ref="JSON_Logger_Config" message="updateFulfillmentLineItems Flow Implementation Ends" tracePoint="END" category="com.condenast" priority="DEBUG"/>
 	</flow>
-	<sub-flow name="prepareResponse_SubFlow" doc:id="3696c526-8ae3-46a8-9ff0-99dcfea53f1e" >
-				<ee:transform doc:name="Prepare Response Headers" doc:id="14cbd8fe-55b1-40e3-bb67-478f516d5fd9">
-			<ee:message>
-			</ee:message>
-			<ee:variables >
-				<ee:set-variable variableName="outboundHeaders" ><![CDATA[%dw 2.0
-output application/json
----
-{
-	//"x-message-id": vars.myHeaders['x-message-id'],
-	"x-correlation-id": vars.myHeaders['x-correlation-id'] default correlationId,
-	// Source and Target will be switched as per business requirement
-	"x-source": vars.myHeaders['x-target'],
-	"x-target": vars.myHeaders['x-source'],
-	"x-message-type": vars.myHeaders['x-message-type'],
-	"x-message-version": "1.0.0",
-	"x-generation-time": now(),
-	"x-message-id": vars.myHeaders['x-message-id'],
-	"x-processing-time": vars.myHeaders['x-processing-time'],
-	"Content-Type": "application/json"
-}]]></ee:set-variable>
-			</ee:variables>
-		</ee:transform>
-		<choice doc:name="Choice" doc:id="945f6548-508f-427d-b235-53769db61432" >
-			<when expression='#[(payload[0]."Success" default "false") == "true"]'>
-				<ee:transform doc:name="Prepare Success Response" doc:id="0c814b98-ccc1-4197-8749-d47d7beb3266" >
-					<ee:message >
-						<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-{
-    "Status": "Success"
-}]]></ee:set-payload>
-					</ee:message>
-				</ee:transform>
-			</when>
-			<otherwise >
-				<ee:transform doc:name="Prepare Failure Response" doc:id="ae6f03b0-982d-43aa-8647-9b5017ba100d" >
-					<ee:message >
-						<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-payload[0].batchResult]]></ee:set-payload>
-					</ee:message>
-				</ee:transform>
-			</otherwise>
-		</choice>
-	</sub-flow>
 	<sub-flow name="setHeaders" doc:id="153b763f-bf36-49e2-acae-37053c6b6a6e" >
-	<set-variable value="#[output application/json --- { &quot;x-message-version&quot;: attributes.headers.&quot;x-message-version&quot;, &quot;x-source&quot;: attributes.headers.&quot;x-source&quot;, &quot;x-target&quot;: attributes.headers.&quot;x-target&quot;, &quot;x-generation-time&quot;: attributes.headers.&quot;x-generation-time&quot;, &quot;x-message-type&quot;: attributes.headers.&quot;x-message-type&quot;, &quot;x-message-id&quot;: attributes.headers.&quot;x-message-id&quot;, &quot;client_id&quot;: Mule::p('secure::atlas.sfdc.brightmedia.sapi.client_id'), &quot;client_secret&quot;: Mule::p('secure::atlas.sfdc.brightmedia.sapi.client_secret')  }]" doc:name="Set myHeaders" doc:id="49f57642-420c-4dd9-b019-a51525634b91" variableName="myHeaders" />
+	<set-variable value="#[output application/json skipNullOn=&quot;everywhere&quot;&#10;---&#10;{&#10;	&quot;x-message-version&quot;: attributes.headers.&quot;x-message-version&quot;,&#10;	&quot;x-source&quot;: attributes.headers.&quot;x-source&quot;,&#10;	&quot;x-target&quot;: attributes.headers.&quot;x-target&quot;,&#10;	&quot;x-generation-time&quot;: attributes.headers.&quot;x-generation-time&quot;,&#10;	&quot;x-message-type&quot;: attributes.headers.&quot;x-message-type&quot;,&#10;	&quot;x-message-id&quot;: attributes.headers.&quot;x-message-id&quot;,&#10;	&quot;client_id&quot;: Mule::p('secure::atlas.sfdc.brightmedia.sapi.client_id'), &#10;	&quot;client_secret&quot;: Mule::p('secure::atlas.sfdc.brightmedia.sapi.client_secret')&#10;}]" doc:name="Set myHeaders" doc:id="49f57642-420c-4dd9-b019-a51525634b91" variableName="myHeaders" />
 	</sub-flow>	
 </mule>
