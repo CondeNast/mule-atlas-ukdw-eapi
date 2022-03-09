@@ -1,11 +1,10 @@
 api:
   autodiscovery:
-    #id: "16520548"
     id: "17674064"
-  
+      
 json.logger:
   disabledFields: ""
-  
+ 
 dlb:
   internal:
     hostname: "private-api-int.condenast.com"
@@ -28,4 +27,4 @@ slack:
 
 #Tags based for each enviroment
 log:
-  tags: "prod-ukdwh-eapi"   
+  tags: "prod-ukdwh-eapi"
