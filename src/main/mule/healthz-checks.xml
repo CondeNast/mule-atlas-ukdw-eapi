@@ -23,7 +23,7 @@ output application/json
 ---
 {
 	"apiService": "Mulesoft UKDWH EAPI Application Healthz Check API",
-	"requestBody": payload default null,
+	"requestBody": null,
 	"messageId": attributes.headers."x-message-id" default correlationId,
 	"apiName": Mule::p('api.name'),
 	"jobType": "Http Request Trigger",
@@ -89,7 +89,7 @@ output application/json
 ---
 {
 	"apiService": "Mulesoft UKDWH SAPI Application BrightMedia Connection Healthz Check API",
-	"requestBody": payload default null,
+	"requestBody": null,
 	"messageId": attributes.headers."x-message-id" default correlationId,
 	"apiName": Mule::p('api.name'),
 	"jobType": "Http Request Trigger",
