@@ -47,7 +47,7 @@ output application/json
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="INFO: Log Success" doc:id="08176db0-7d69-42bf-9f46-9244932f6f25" message="#[payload]" category="com.condenast.api"/>
+		<logger level="INFO" doc:name="INFO: Log Success" doc:id="08176db0-7d69-42bf-9f46-9244932f6f25" message="#[payload]" category="com.condenast.api.healthz"/>
 		<error-handler >
 			<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="25d30fdd-8d5b-44c2-b6ed-900a06902738" >
 				<set-variable value="500" doc:name="Set httpStatus" doc:id="346cb2de-9029-4186-bdab-34c4693b2b45" variableName="httpStatus"/>
@@ -69,7 +69,7 @@ output application/json
 }]]></ee:set-payload>
 					</ee:message>
 				</ee:transform>
-				<logger level="ERROR" doc:name="ERROR: Log Error" doc:id="38034242-9470-45cf-a630-d92f0faa2b3c" message="#[payload]" category="com.condenast.api"/>
+				<logger level="ERROR" doc:name="ERROR: Log Error" doc:id="38034242-9470-45cf-a630-d92f0faa2b3c" message="#[payload]" category="com.condenast.api.healthz"/>
 				<flow-ref doc:name="error-handling-process-error-flow" doc:id="4652f056-ab8e-4018-be4a-833db90d5804" name="error-handling-process-error-flow"/>
 			</on-error-continue>
 		</error-handler>
@@ -119,7 +119,7 @@ output application/json
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="INFO: Log Success" doc:id="02874fcf-14ac-436f-9552-9c7cfb1a1499" message="#[payload]" category="com.condenast.api"/>
+		<logger level="INFO" doc:name="INFO: Log Success" doc:id="02874fcf-14ac-436f-9552-9c7cfb1a1499" message="#[payload]" category="com.condenast.api.healthz"/>
 		<error-handler >
 			<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="6891d343-0c4a-43f1-b218-453646de1a2e" >
 				<set-variable value="500" doc:name="Set httpStatus" doc:id="d0db7f68-7a82-4ba0-a6a6-c49dcba496d8" variableName="httpStatus"/>
@@ -141,7 +141,7 @@ output application/json
 }]]></ee:set-payload>
 					</ee:message>
 				</ee:transform>
-				<logger level="ERROR" doc:name="ERROR: Log Error" doc:id="0493b4d8-469c-4bbd-92bf-d07f9371b765" message="#[payload]" category="com.condenast.api"/>
+				<logger level="ERROR" doc:name="ERROR: Log Error" doc:id="0493b4d8-469c-4bbd-92bf-d07f9371b765" message="#[payload]" category="com.condenast.api.healthz"/>
 				<flow-ref doc:name="error-handling-process-error-flow" doc:id="37b2b9e9-690a-49c7-aecb-1e1c63c63359" name="error-handling-process-error-flow"/>
 			</on-error-continue>
 				</error-handler >
