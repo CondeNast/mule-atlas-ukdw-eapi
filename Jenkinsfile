@@ -18,7 +18,7 @@ pipeline {
       steps {
            //enable remote triggers
         script {
-          properties([pipelineTriggers([pollSCM('*/5 * * * *')])])
+          properties([pipelineTriggers([pollSCM('*/30 * * * *')])])
         }
         withMaven(maven:'maven') {
           sh 'mvn clean install -P default'
