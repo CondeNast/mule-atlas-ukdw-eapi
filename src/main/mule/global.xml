@@ -39,13 +39,13 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 		doc:id="760639d9-e6bf-4bff-aa98-35df19291a79"
 		defaultErrorHandler-ref="global-error-handler" />
 
-	<import doc:name="Import"
+	<import doc:name="common-services-error-handling"
 		doc:id="8a82b459-4a3f-4a1a-8b6f-8c8acce2bff9"
 		file="common-services-error-handling.xml" />
-	<import doc:name="Import"
+	<import doc:name="common-services-global"
 		doc:id="3ec2d040-051a-4f93-8dcb-1616d440d71f"
 		file="common-services-global.xml" />
-	<import doc:name="Import"
+	<import doc:name="common-services-logging"
 		doc:id="188aaff1-0bc8-4a50-9754-6c7193c50663"
 		file="common-services-logging.xml" />
 	<http:request-config
