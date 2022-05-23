@@ -11,6 +11,7 @@ http:
   reconnection:
     frequency: "2000"
     attempts: "2"
+  keepApiBaseUri: "true"
     
 dlb:
   internal:
