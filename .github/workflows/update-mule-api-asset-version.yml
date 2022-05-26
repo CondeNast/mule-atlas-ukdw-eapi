@@ -27,7 +27,7 @@ jobs:
           
       - name: Get RAML version and Update API Manager
         run: |
-          GROUP_ID=$(echo "cat /project/groupId/text()" | xmllint --xpath "//*[local-name()='project']/*[local-name()='groupId']" pom.xml | sed -e 's/<[^>]*>//g')
+          GROUP_ID=$(echo "cat /project/properties/cloudhub.mulesoft.groupId/text()" | xmllint --xpath "//*[local-name()='project']/*[local-name()='properties']/*[local-name()='cloudhub.mulesoft.groupId']" pom.xml | sed -e 's/<[^>]*>//g')
           echo "cat /project/dependencies" | xmllint --xpath "//*[local-name()='project']/*[local-name()='dependencies']" pom.xml > dependencies.xml
           RAML_VERSION=$(xmllint --xpath "//dependency[classifier='raml']/version/text()" dependencies.xml)
           echo -e "💡 Group ID in the committed code is: [$GROUP_ID]"
@@ -51,4 +51,4 @@ jobs:
           echo -e "--- 🖥️ Invoking API Manager Platform API ---"
           RESPONSE=$(curl -s --location --request PATCH 'https://anypoint.mulesoft.com/apimanager/api/v1/organizations/'$GROUP_ID'/environments/'$ENV_ID'/apis/'$AUTO_ID --header 'Content-Type: application/json' --header 'Authorization: Bearer '$TOKEN --data-raw '{"assetVersion" : "'$RAML_VERSION'" }')
           echo $RESPONSE
-          case "$RESPONSE" in *updated*) echo "🎉 Successfully Updated Asset Version in API Manager";; *) (exit 1);; esac
+          case "$RESPONSE" in *"updated"*) echo "🎉 Successfully Updated Asset Version in API Manager";; *) (exit 1);; esac
