@@ -1,0 +1,54 @@
+# This is a workflow which Integrates with Mulesoft API Manager and Automatically Updates corresponding API's Asset Version in API Manager After Successful Code push.
+
+name: Update API's Asset Version in API Manager
+on:
+  push:
+    branches:
+    - develop
+    - sit
+    - stg
+    - test
+    
+jobs:
+  GitHub-Actions-API-Asset-Update:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+          
+      - name: Installing xmllint program to parse POM XML file 
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libxml2-utils
+          xmllint --version
+          
+      - name: Get RAML version and Update API Manager
+        run: |
+          GROUP_ID=$(echo "cat /project/properties/cloudhub.mulesoft.groupId/text()" | xmllint --xpath "//*[local-name()='project']/*[local-name()='properties']/*[local-name()='cloudhub.mulesoft.groupId']" pom.xml | sed -e 's/<[^>]*>//g')
+          echo "cat /project/dependencies" | xmllint --xpath "//*[local-name()='project']/*[local-name()='dependencies']" pom.xml > dependencies.xml
+          RAML_VERSION=$(xmllint --xpath "//dependency[classifier='raml']/version/text()" dependencies.xml)
+          echo -e "💡 Group ID in the committed code is: [$GROUP_ID]"
+          echo -e "💡 RAML version in the committed code is: [$RAML_VERSION]"
+          
+          echo -e "--- 🖥️ Get Auto Discovery ID---"
+          BRANCH=$(echo ${{ github.ref }} | sed 's/.*\///')
+          BRANCH=$(case $BRANCH in  develop) echo -n "dev" ;; sit) echo -n "sit" ;; stg) echo -n "stg" ;; test) echo -n "test" ;; *) echo -n "unknown branch" ;; esac)
+          echo -e "💡 Working Branch is: [$BRANCH]"
+          ENV_ID=$(case $BRANCH in  dev) echo -n "c7e87d7a-f6c9-4106-a574-2a88ca8df6f6" ;; sit) echo -n "3dd77707-f7cd-440a-81e9-dfa245352326" ;; stg) echo -n "57c47461-a8b4-4f5e-bca3-022bb8c4dc06" ;; test) echo -n "e61d0834-1c38-4bde-8de7-459fc33880ee" ;; *) echo -n "unknown branch" ;; esac)
+          echo -e "💡 Environment ID is: [$ENV_ID]"
+          AUTO_ID=$(grep -A3 'id:' src/main/resources/properties/$BRANCH-properties.yaml | awk '{ print $2}'| head -n1 | tr -d '"\n\r')
+          echo -e "💡 Auto Discovery ID is: [$AUTO_ID]"
+          
+          echo -e "--- 🔎 Get Access Token---"
+          curl -s --location --request POST 'https://anypoint.mulesoft.com/accounts/login' --header 'Content-Type: application/json' --data-raw '{ "username":"cndeploy", "password":"C@ndeN@st12!@" }' >> token.json
+          echo -e " 🐧 Parse Token File"
+          TOKEN=$(grep -o '"access_token": *"[^"]*"' token.json | grep -o '"[^"]*"$' | tr -d '"')
+          echo -e "💡 Access Token is: [$TOKEN]"
+          
+          echo -e "--- 🖥️ Invoking API Manager Platform API ---"
+          RESPONSE=$(curl -s --location --request PATCH 'https://anypoint.mulesoft.com/apimanager/api/v1/organizations/'$GROUP_ID'/environments/'$ENV_ID'/apis/'$AUTO_ID --header 'Content-Type: application/json' --header 'Authorization: Bearer '$TOKEN --data-raw '{"assetVersion" : "'$RAML_VERSION'" }')
+          echo $RESPONSE
+          case "$RESPONSE" in *"updated"*) echo "🎉 Successfully Updated Asset Version in API Manager";; *) (exit 1);; esac
