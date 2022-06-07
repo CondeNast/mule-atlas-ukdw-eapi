@@ -28,3 +28,7 @@ slack:
 #Tags based for each enviroment
 log:
   tags: "dev-ukdwh-eapi"
+  
+healthz:
+  flow:
+    state: "started"
