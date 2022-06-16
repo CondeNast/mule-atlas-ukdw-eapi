@@ -8,7 +8,7 @@
 http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd 
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
-		<flow name="healthz-check-global-application-main-flow" doc:id="22544760-37d9-42fc-80be-3052342a159c" >
+		<flow name="healthz-check-global-application-main-flow" doc:id="22544760-37d9-42fc-80be-3052342a159c" initialState="${healthz.flow.state}">
 		<scheduler doc:name="Healthz Scheduler MainFlow" doc:id="a2a4fca6-14c9-4f67-b56a-aab60b021479" >
 			<scheduling-strategy >
 				<fixed-frequency frequency="15" timeUnit="MINUTES"/>
@@ -74,7 +74,7 @@ output application/json
 			</on-error-continue>
 		</error-handler>
 	</flow>
-	<flow name="healthz-check-brightMediaSapi-main-flow" doc:id="392b9645-742f-4580-9b6c-5ca3457b7e03" >
+	<flow name="healthz-check-brightMediaSapi-main-flow" doc:id="392b9645-742f-4580-9b6c-5ca3457b7e03" initialState="${healthz.flow.state}">
 		<scheduler doc:name="Healthz Scheduler Rest Flow" doc:id="6d8a8f5f-e709-42ef-94bf-017b2a064e6b" >
 			<scheduling-strategy >
 				<fixed-frequency frequency="15" timeUnit="MINUTES"/>
